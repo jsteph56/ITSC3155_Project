@@ -19,14 +19,14 @@ body {
 
 .searchButton {
     display: block;
-    margin-left: 950px;
+    margin-left: 60%;
     margin-right: auto;
     margin-top: 5px;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
     border-radius: 40px;
     color: #272638;
-    height: 30px;
-    width: 140px;
+    height: 3%;
+    width: 9.5%;
     outline: white;
     font-family: myFirstFont;
     font-size: 20px;
@@ -68,6 +68,7 @@ body {
 .nav {
     display: inline;
     color: white;
+    font-weight: normal;
 }
 
 .navLinks {
@@ -84,16 +85,24 @@ body {
 }
 
 .searchText {
-    margin-left: -350px;
+    position: relative;
+    margin-left: -28.5%;
+    margin-right: auto;
     margin-bottom: 4px;
 }
 
 .search {
-    width: 650px;
+    position: relative;
+    width: 43%;
     height: 25px;
     background-color: #272638;
     border: solid 2px white;
     color: white;
+}
+
+.postedText {
+    margin-left: -40.5%;
+    margin-top: 3%;
 }
 
 .navCurrent {
@@ -103,13 +112,17 @@ body {
 }
 
 .bar {
-    position: relative;
+    position: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 60px;
     background-color: white;
-    height: 550px;
-    width: 3px;
+    height: 95%;
+    width: 2px;
+}
+
+.wrapper {
+    height: 90vh;
 }
 
 .postButton {
@@ -117,6 +130,52 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 50px;
+    width: 200px;
+    outline: white;
+    font-family: myFirstFont;
+    font-size: 20px;
+}
+
+.leftSide {
+    margin-top: -90vh;
+    margin-left: 20%;
+    color: white;
+}
+
+.profilePic {
+    position: relative;
+    width: 25%;
+    border-radius: 50%;
+    margin-left: -2vw;
+}
+
+.login {
+    width: 400px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    margin-top: 0px;
+}
+
+.leftSide h2 {
+    margin-bottom: 0%;
+}
+
+.leftSide h2, input {
+    margin-left: -5%;
+}
+
+.uploadPic {
+    display: block;
+    margin-left: 2%;
+    margin-right: auto;
+    margin-top: 1%;
+    margin-bottom: 5%;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
     border-radius: 40px;
     color: #272638;
