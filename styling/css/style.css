@@ -1,0 +1,113 @@
+body {
+    background-color: #272638;
+}
+
+.buttons {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 50px;
+    width: 160px;
+    outline: white;
+    font-family: myFirstFont;
+    font-size: 20px;
+}
+
+.searchButton {
+    display: block;
+    margin-left: 950px;
+    margin-right: auto;
+    margin-top: 5px;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 30px;
+    width: 140px;
+    outline: white;
+    font-family: myFirstFont;
+    font-size: 20px;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/mont/Mont-HeavyDEMO.otf);
+}
+
+.Indexlogo {
+    display: block;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 350px;
+    max-height: 350px;
+    position: relative;
+}
+
+.logo {
+    display: block;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: auto;
+    max-width: 100px;
+    max-height: 100px;
+    position: relative;
+}
+
+.header {
+    width: 100vw;
+    height: 100px;
+    background-color: green;
+    margin-left: -9px;
+    margin-top: -10px;
+}
+
+.nav {
+    display: inline;
+    color: white;
+}
+
+.navLinks {
+    position: relative;
+    margin-top: -65px;
+    color: white;
+    text-align-last: center;
+}
+
+.questions {
+    color: white;
+    text-align-last: center;
+    margin-top: 35px;
+}
+
+.searchText {
+    margin-left: -350px;
+    margin-bottom: 4px;
+}
+
+.search {
+    width: 650px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+}
+
+.navCurrent {
+    display: inline;
+    color: white;
+    font-weight: bold;
+}
+
+.bar {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    background-color: white;
+    height: 550px;
+    width: 3px;
+}
