@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Aardvark Answers</title>
+        <meta name="Home" content="3155 Project">
+		<meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../styling/css/style.css">
+    </head>
+    <body>
+        <div class="header">
+            <img src="../styling/Images/AardvarkLogo.png" alt="Aardvark Answers Logo" class="logo">
+            <div class="welcomeHeader">
+                <h1>Welcome Back to Aardvark Answers</h1>
+                <!-- Once we get acounts functional we need to add a logout button -->
+            </div>
+        </div>
+        <div class="loginPage">
+            <h2>Please login with your Email and Password:</h2>
+            <form method="GET" action="../users/profile.html">
+                <table class="centered">
+                    <tr>
+                        <td><label class="required">Email:</label></td>
+                        <td><input type="email" title="Enter your email"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required">Password:</label></td>
+                        <td><input type="password" class="required" title="Enter your password" minlength="8"></td>
+                    </tr>
+                </table>
+                <button class="submit">Login</button>
+            </form>
+        </div>
+    </body>
+</html>

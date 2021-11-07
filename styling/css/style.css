@@ -13,7 +13,7 @@ body {
     height: 50px;
     width: 160px;
     outline: white;
-    font-family: myFirstFont;
+    font-family: fontBold;
     font-size: 20px;
 }
 
@@ -28,13 +28,18 @@ body {
     height: 3%;
     width: 9.5%;
     outline: white;
-    font-family: myFirstFont;
+    font-family: fontBold;
     font-size: 20px;
 }
 
 @font-face {
-    font-family: myFirstFont;
+    font-family: fontBold;
     src: url(../fonts/mont/Mont-HeavyDEMO.otf);
+}
+
+@font-face {
+    font-family: fontLight;
+    src: url(../fonts/mont/Mont-ExtraLightDEMO.otf);
 }
 
 .Indexlogo {
@@ -69,6 +74,7 @@ body {
     display: inline;
     color: white;
     font-weight: normal;
+    font-family: fontLight;
 }
 
 .navLinks {
@@ -76,6 +82,14 @@ body {
     margin-top: -65px;
     color: white;
     text-align-last: center;
+}
+
+.welcomeHeader {
+    position: relative;
+    margin-top: -90px;
+    color: white;
+    text-align-last: center;
+    font-family: fontLight;
 }
 
 .questions {
@@ -86,9 +100,10 @@ body {
 
 .searchText {
     position: relative;
-    margin-left: -28.5%;
+    margin-left: -24.5%;
     margin-right: auto;
     margin-bottom: 4px;
+    font-family: fontLight;
 }
 
 .search {
@@ -103,12 +118,13 @@ body {
 .postedText {
     margin-left: -40.5%;
     margin-top: 3%;
+    font-family: fontLight;
 }
 
 .navCurrent {
     display: inline;
     color: white;
-    font-weight: bold;
+    font-family: fontBold;
 }
 
 .bar {
@@ -136,7 +152,7 @@ body {
     height: 50px;
     width: 200px;
     outline: white;
-    font-family: myFirstFont;
+    font-family: fontBold;
     font-size: 20px;
 }
 
@@ -144,6 +160,7 @@ body {
     margin-top: -90vh;
     margin-left: 20%;
     color: white;
+    font-family: fontLight;
 }
 
 .profilePic {
@@ -182,6 +199,49 @@ body {
     height: 50px;
     width: 200px;
     outline: white;
-    font-family: myFirstFont;
+    font-family: fontBold;
+    font-size: 20px;
+}
+
+.loginPage {
+    color: white;
+    font-family: fontLight;
+    text-align: center;
+    margin-top: 4%;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centered input {
+    position: relative;
+    width: 300px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.required:before {
+    content:"* ";
+    color:red;
+}
+
+.submit {
+    display: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 4%;
+    width: 9.5%;
+    outline: white;
+    font-family: fontBold;
     font-size: 20px;
 }
