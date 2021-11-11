@@ -26,18 +26,36 @@
                 </a>
             </div>
         </div>
-        <button class="postButton">Post a Question</button>
-        <div class="questions">
-            <h3 class="searchText">Search questions, topics, and accounts</h3>
-            <form>
-                <input class="search"></input>
-            </form>
-            <button class="searchButton">Search</button>
-            <div class="posts">
-<!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3 class="postedText">Recently Posted</h3>
+        <div class="newQuestion">
 
-            </div>
+            {% if question %}
+                <form action="{{ url_for('update_question', question_id=question.id) }}" method="post">
+            {% else %}
+                <form action ="new_question" method="post">
+            {% endif %}
+                <p><label>Question</label></p>
+                <p><input type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
+                <p> <input type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
+                <p><label>Description </label></p>
+                <p>
+                    <textarea name="body" rows="10" cols="0">
+                        {% if question %}
+                            {{question.body}}
+                        {% else %}
+                            Add your question description here!!
+                        {% endif %}
+
+                    </textarea>
+                </p>
+                <p>
+                    {% if question %}
+                        <input type="submit" value="Update Question"/>
+                    {% else %}
+                        <input type="submit" value="Add Question"/>
+                    {% endif %}
+                </p>
+            </form>
+            </form>
         </div>
     </body>
 </html>

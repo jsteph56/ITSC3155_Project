@@ -5,20 +5,18 @@ class Question(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     header = db.Column("header", db.String(300))
     body = db.Column("body", db.String(10000))
-    user = db.Column("user", db.String(200))
     likes = db.Column("likes", db.Integer)
     dislikes = db.Column("dislikes", db.Integer)
     topics = db.Column("topics", db.String(10))
-    imageURL = db.Column("imageURL", db.String(500))
+    # imageURL = db.Column("imageURL", db.String(500)) - implement later
 
-    def __init__(self, header, body, user, likes, dislikes, topics, imageURL):
+    def __init__(self, header, body, topics):
         self.header = header
         self.body = body
-        self.user = user
-        self.likes = likes
-        self.dislikes = dislikes
+        self.likes = 0
+        self.dislikes = 0
         self.topics = topics
-        self.imageURL = imageURL
+        # self.imageURL = imageURL
 
 
 class User(db.Model):
