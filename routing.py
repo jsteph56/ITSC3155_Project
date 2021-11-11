@@ -6,6 +6,15 @@ from flask import Flask, render_template, request, redirect, url_for
 
 #Create the app
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aardvark_answers.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+#  Bind SQLAlchemy db object to this Flask app
+db.init_app(app)
+
+# Setup models
+with app.app_context():
+    db.create_all()   # run under the app context
 
 @app.route('/')
 @app.route('/index')
