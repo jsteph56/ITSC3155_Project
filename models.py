@@ -11,9 +11,10 @@ class Question(db.Model):
     topics = db.Column("topics", db.String(10))
     # imageURL = db.Column("imageURL", db.String(500)) - implement later
 
-    def __init__(self, header, body, topics):
+    def __init__(self, header, body, date, topics):
         self.header = header
         self.body = body
+        self.date = date
         self.likes = 0
         self.dislikes = 0
         self.topics = topics
