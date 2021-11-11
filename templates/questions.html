@@ -4,24 +4,24 @@
         <title>Aardvark Answers</title>
         <meta name="Home" content="3155 Project">
 		<meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
     </head>
     <body>
         <div class="header">
-            <a href="questions.html">
+            <a href="{{ url_for('questions') }}">
                 <img src="../static/Images/AardvarkLogo.png" alt="Aardvark Answers Logo" class="logo">
             </a>
             <div class="navLinks">
-                <a href="questions.html">
+                <a href="{{ url_for('questions') }}">
                     <h2 class="navCurrent">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a>
                     <h2 class="nav">Reviews</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="../users/profile.html">
+                <a href="{{ url_for('profile') }}">
                     <h2 class="nav">My Account</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="../index.html">
+                <a href="{{ url_for('index') }}">
                     <h2 class="nav">Logout</h2>
                 </a>
             </div>
