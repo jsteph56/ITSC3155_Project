@@ -4,15 +4,17 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from database import db
-from models import Question
-from models import User
+from models import Question as Question
+from models import User as User
 
-#Create the app
+# Create the app
 app = Flask(__name__)
+
+# Set name and location of database file
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aardvark_answers.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-#  Bind SQLAlchemy db object to this Flask app
+# Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
 
 # Setup models
@@ -30,31 +32,33 @@ def questions():
     #this is the same as get_notes, we just need to retrieve the notes from the database to display them
 
     #retrieve list of questions from database
-    questions = db.session.query(Question).All()
+    questions = db.session.query(Question).all()
 
-    return render_template('questions.html', Question = questions)
+    return render_template('questions.html', Question=questions)
 
-@app.route('/newQuestion', method=['GET', 'POST'])
-def newQuestion():
-    #this needs to be able to post a new question
+@app.route('/new_question', methods=['GET', 'POST'])
+def new_question():
+    # this needs to be able to post a new question
     if request.method == 'POST':
+        # Get question data
         header = request.form['header']
         body = request.form['body']
-        #user = ....
-        #likes = ....
-        #dislikes = .....
+        user = request.form['user']
+        likes = request.form['likes']
+        dislikes = request.form['dislikes']
         #topics are a list? does this need to be an array
         topics = request.form['topics']
-        #imageURL = ....
+        imageURL = request.form['imageURL']
 
-        #Add new question to database
+        # Create a new question
         new_question = Question(header, body, user, likes, dislikes, topics, imageURL)
-        db.session.add(new_record)
+        db.session.add(new_question)
         db.session.commit()
-    else:
-        return render_template('newQuestion.html')
 
-        return redirect(url_for('newQuestion'))
+        return redirect(url_for('questions'))
+    else:
+        # GET request - show new question form
+        return render_template('new_question.html')
 
 @app.route('/profile')
 def profile():

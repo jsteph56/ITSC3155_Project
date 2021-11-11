@@ -1,12 +1,13 @@
 from database import db
 
+
 class Question(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     header = db.Column("header", db.String(300))
     body = db.Column("body", db.String(10000))
     user = db.Column("user", db.String(200))
-    likes = db.Column("likes", db.Integer(10))
-    dislikes = db.Column("dislikes", db.Integer(5))
+    likes = db.Column("likes", db.Integer)
+    dislikes = db.Column("dislikes", db.Integer)
     topics = db.Column("topics", db.String(10))
     imageURL = db.Column("imageURL", db.String(500))
 
@@ -30,4 +31,3 @@ class User(db.Model):
         self.name = name
         self.email = email
         self.password = password
-
