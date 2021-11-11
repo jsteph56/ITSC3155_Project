@@ -47,8 +47,12 @@ def new_question():
         topics = request.form['topics']
         # imageURL = request.form['imageURL'] - implement at a later date
 
+        from datetime import date
+        today = date.today()
+        today = today.strftime("%m-%d-%Y")
+        
         # Create a new question
-        new_question = Question(header, body, topics)
+        new_question = Question(header, body, today, topics)
         db.session.add(new_question)
         db.session.commit()
 
