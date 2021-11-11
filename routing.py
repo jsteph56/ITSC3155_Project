@@ -29,12 +29,31 @@ def index():
 def questions():
     #this is the same as get_notes, we just need to retrieve the notes from the database to display them
 
-    return render_template('questions.html')
+    #retrieve list of questions from database
+    questions = db.session.query(Question).All()
+
+    return render_template('questions.html', Question = questions)
 
 @app.route('/newQuestion', method=['GET', 'POST'])
 def newQuestion():
     #this needs to be able to post a new question
     if request.method == 'POST':
+        header = request.form['header']
+        body = request.form['body']
+        #user = ....
+        #likes = ....
+        #dislikes = .....
+        #topics are a list? does this need to be an array
+        topics = request.form['topics']
+        #imageURL = ....
+
+        #Add new question to database
+        new_question = Question(header, body, user, likes, dislikes, topics, imageURL)
+        db.session.add(new_record)
+        db.session.commit()
+    else:
+        return render_template('newQuestion.html')
+
         return redirect(url_for('newQuestion'))
 
 @app.route('/profile')
