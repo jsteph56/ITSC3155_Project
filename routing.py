@@ -3,7 +3,7 @@
 #Imports
 import os
 from flask import Flask, render_template, request, redirect, url_for
-from databse import db
+from database import db
 from models import Question
 from models import User
 
