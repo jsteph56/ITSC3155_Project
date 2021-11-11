@@ -3,6 +3,9 @@
 #Imports
 import os
 from flask import Flask, render_template, request, redirect, url_for
+from databse import db
+from models import Question
+from models import User
 
 #Create the app
 app = Flask(__name__)
@@ -19,11 +22,20 @@ with app.app_context():
 @app.route('/')
 @app.route('/index')
 def index():
+
     return render_template('index.html')
 
 @app.route('/questions')
 def questions():
+    #this is the same as get_notes, we just need to retrieve the notes from the database to display them
+
     return render_template('questions.html')
+
+@app.route('/newQuestion', method=['GET', 'POST'])
+def newQuestion():
+    #this needs to be able to post a new question
+    if request.method == 'POST':
+        return redirect(url_for('newQuestion'))
 
 @app.route('/profile')
 def profile():
