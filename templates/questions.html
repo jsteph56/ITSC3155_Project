@@ -45,7 +45,7 @@
                     {% for question in questions %}
                     <tr>
                         <td>{{ question.topics }}</td>
-                        <td>{{ question.header }}</td>
+                        <td><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></td>
                         <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
                         <td>
                             <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
