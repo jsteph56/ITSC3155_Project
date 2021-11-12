@@ -35,7 +35,17 @@ def questions():
     # Retrieve list of questions from database
     my_questions = db.session.query(Question).all()
 
-    return render_template('questions.html', question=my_questions, user=a_user)
+    return render_template('questions.html', questions=my_questions, user=a_user)
+
+
+@app.route('/questions/<question_id>')
+def view_question(question_id):
+    #Get user from database
+    a_user = db.session.query(User).filter_by(email='Aardvark@uncc.edu').one()
+    #Get question from database
+    my_questions = db.session.query(Question).filter_by(id=question_id).one()
+
+    return render_template('view_question.html', question=my_questions, user=a_user)
 
 
 @app.route('/new_question', methods=['GET', 'POST'])

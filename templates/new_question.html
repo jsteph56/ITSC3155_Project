@@ -4,7 +4,7 @@
         <title>Aardvark Answers</title>
         <meta name="Home" content="3155 Project">
 		<meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     </head>
     <body>
         <div class="header">
@@ -34,9 +34,9 @@
                 <form action ="new_question" method="post">
             {% endif %}
                     <p><label class="searchText">Question</label></p>
-                    <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
-                    <p><label class="searchText">Topics</label></p>
                     <p><input class="search" type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
+                    <p><label class="searchText">Topics</label></p>
+                    <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
                     <p><label class="searchText">Description </label></p>
                     <p>
                         <textarea name="body" rows="10" cols="0">

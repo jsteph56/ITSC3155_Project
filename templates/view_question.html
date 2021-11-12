@@ -26,32 +26,14 @@
                 </a>
             </div>
         </div>
-
-        <form method="GET" action="./new_question">
-            <button class="postButton">Post a Question</button>
-        </form>
-
         <div class="questions">
-            <h3 class="searchText">Search questions, topics, and accounts</h3>
-            <form>
-                <input class="search"></input>
-            </form>
-            <button class="searchButton">Search</button>
-
-            <div class="posts">
-<!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3 class="postedText">Recently Posted</h3>
-                <table>
-                    {% for question in questions %}
-                    <tr>
-                        <td><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></td>
-                        <td>{{ question.topics }}</td>
-                        <td>{{ question.body }}</td>
-                        <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
+            <h1 class="postedText">Question</h1>
+            <p>{{ question.header }}></p>
+            <h3 class="postedText">Topics</h3>
+            <p>{{ question.topics }}</p>
+            <h3 class="postedText">Description</h3>
+            <p>{{ question.body }}</p>
         </div>
     </body>
 </html>
+
