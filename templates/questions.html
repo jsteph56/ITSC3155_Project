@@ -41,12 +41,11 @@
             <div class="posts">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="postedText">Recently Posted</h3>
-                <table>
+                <table class="centered">
                     {% for question in questions %}
                     <tr>
-                        <h3 class="postedText"><td>{{ question.header }}</td></h3>
-                        <h3 class="postedText"><td>{{ question.body }}</td></h3>
-                        <h3 class="postedText"><td>{{ question.topics }}</td></h3>
+                        <td>{{ question.topics }}</td>
+                        <td>{{ question.header }}</td>
                         <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
                         <td>
                             <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
