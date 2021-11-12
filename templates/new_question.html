@@ -26,36 +26,37 @@
                 </a>
             </div>
         </div>
-        <div class="newQuestion">
+        <div class="questions">
 
             {% if question %}
                 <form action="{{ url_for('update_question', question_id=question.id) }}" method="post">
             {% else %}
                 <form action ="new_question" method="post">
             {% endif %}
-                <p><label>Question</label></p>
-                <p><input type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
-                <p> <input type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
-                <p><label>Description </label></p>
-                <p>
-                    <textarea name="body" rows="10" cols="0">
-                        {% if question %}
-                            {{question.body}}
-                        {% else %}
-                            Add your question description here!!
-                        {% endif %}
+                    <p><label class="searchText">Question</label></p>
+                    <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
+                    <p><label class="searchText">Topics</label></p>
+                    <p><input class="search" type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
+                    <p><label class="searchText">Description </label></p>
+                    <p>
+                        <textarea name="body" rows="10" cols="0">
+                            {% if question %}
+                                {{question.body}}
+                            {% else %}
+                                Add your question description here!!
+                            {% endif %}
 
-                    </textarea>
-                </p>
-                <p>
-                    {% if question %}
-                        <input type="submit" value="Update Question"/>
-                    {% else %}
-                        <input type="submit" value="Add Question"/>
-                    {% endif %}
-                </p>
-            </form>
-            </form>
+                        </textarea>
+                    </p>
+                    <p>
+                        {% if question %}
+                            <input class=postButton type="submit" value="Update Question"/>
+                        {% else %}
+                            <input class=postButton type="submit" value="Add Question"/>
+                        {% endif %}
+                    </p>
+                </form>
+                </form>
         </div>
     </body>
 </html>

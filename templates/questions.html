@@ -38,6 +38,16 @@
             <div class="posts">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="postedText">Recently Posted</h3>
+                <table>
+                    {% for question in questions %}
+                    <tr>
+                        <td>{{ question.header }}</td>
+                        <td>{{ question.body }}</td>
+                        <td>{{ question.topics }}</td>
+                        <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
     </body>
