@@ -105,6 +105,16 @@ def update_question(question_id):
         return render_template('new_question.html', question=my_question, user=a_user)
 
 
+@app.route('/delete/<question_id>', methods=['POST'])
+def delete_question(question_id):
+    # Retrieve question from database
+    my_question = db.session.query(Question).filter_by(id=question_id).one()
+    db.session.delete(my_question)
+    db.session.commit()
+
+    return redirect(url_for('questions'))
+
+
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
