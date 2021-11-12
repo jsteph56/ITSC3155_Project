@@ -44,9 +44,9 @@
                 <table>
                     {% for question in questions %}
                     <tr>
-                        <td><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></td>
-                        <td>{{ question.topics }}</td>
-                        <td>{{ question.body }}</td>
+                        <h3 class="postedText"><td>{{ question.header }}</td></h3>
+                        <h3 class="postedText"><td>{{ question.body }}</td></h3>
+                        <h3 class="postedText"><td>{{ question.topics }}</td></h3>
                         <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
                     </tr>
                     {% endfor %}
