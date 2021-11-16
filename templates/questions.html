@@ -21,7 +21,7 @@
                 <a href="{{ url_for('profile') }}">
                     <h2 class="nav">My Account</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{{ url_for('index') }}">
+                <a href="{{ url_for('logout') }}">
                     <h2 class="nav">Logout</h2>
                 </a>
             </div>
@@ -38,19 +38,19 @@
             </form>
             <button class="searchButton">Search</button>
 
-            <div class="posts">
+            <div class="postedText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3 class="postedText">Recently Posted</h3>
-                <table>
+                <h3>Recently Posted</h3>
+                <table class="centered">
                     {% for question in questions %}
                     <tr>
-                        <h3 class="postedText"><td>{{ question.header }}</td></h3>
-                        <h3 class="postedText"><td>{{ question.body }}</td></h3>
-                        <h3 class="postedText"><td>{{ question.topics }}</td></h3>
+                        <td><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></td>
+                        <h3><td>{{ question.body }}</td></h3>
+                        <h3><td>{{ question.topics }}</td></h3>
                         <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
                         <td>
                             <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
-                                <input type="submit" value="Delete">
+                                <input type="submit" style="width: 90%;" value="Delete">
                             </form>
                         </td>
                     </tr>

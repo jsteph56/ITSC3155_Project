@@ -245,3 +245,19 @@ body {
     font-family: fontBold;
     font-size: 20px;
 }
+
+table {
+    table-layout: fixed;
+}
+
+th,
+td {
+    width: 15%;
+    overflow: hidden;
+}
+
+.leftText {
+    color: white;
+    text-align: left;
+    font-family: fontLight;
+}
