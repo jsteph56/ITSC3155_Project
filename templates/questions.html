@@ -44,9 +44,28 @@
                 <table class="centered">
                     {% for question in questions %}
                     <tr>
-                        <td class="topic">{{ question.topics }}</td>
                         <td class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></td>
-                        <td class="edit"><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Asked By: </p> <!--This will be fixed later -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <div class="divider"></div>
+                    </tr>
+                    <tr>
+                        <td class="body">{{ question.body }}</td>
+                    </tr>
+                    <tr>
+                        <td class="topic">{{ question.topics }}</td>
+                    </tr>
+                    <tr>
+                        <td class="edit">
+                            <form action="{{ url_for('new_question', question_id=question.id) }}" method="post">
+                                <button type="submit" class="delete">Edit</button>
+                            </form>
+                        </td>
                         <td>
                             <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
                                 <button type="submit" class="delete">Delete</button>

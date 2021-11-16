@@ -33,13 +33,13 @@
             {% else %}
                 <form action ="new_question" method="post">
             {% endif %}
-                    <p><label class="searchText">Question</label></p>
+                    <p><label class="searchText">Title</label></p>
                     <p><input class="search" type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
                     <p><label class="searchText">Topics</label></p>
                     <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
-                    <p><label class="searchText">Description </label></p>
+                    <p><label class="searchText">Question </label></p>
                     <p>
-                        <textarea name="body" rows="10" cols="0">
+                        <textarea name="body" rows="10" cols="0" class="body">
                             {% if question %}
                                 {{question.body}}
                             {% else %}
