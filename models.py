@@ -22,7 +22,7 @@ class Question(db.Model):
     #Referencing the id variable in the User class, which is why it is a lowercase u
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     comments = db.relationship("Comment", backref="question", cascade="all, delete-orphan", lazy=True)
-    likes = db.relationship("Like", backref="question", lazy=True)
+    #likes = db.relationship("Like", backref="question", lazy=True)
 
     def __init__(self, header, body, date, topics, user_id):
         self.header = header
