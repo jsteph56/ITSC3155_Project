@@ -40,37 +40,29 @@
 
             <div class="posts">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3 class="postedText">Recently Posted</h3>
+                <h3 class="postedText">Recently Posted:</h3>
                 <table class="centered">
                     {% for question in questions %}
                     <tr>
-                        <td class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></td>
+                        <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
+                        <p class="asked">Asked By: </p> <!--This will be fixed later -->
+                    </tr>
+                    <div class="divider"></div>
+                    <tr>
+                        <p class="body">{{ question.body }}</p>
                     </tr>
                     <tr>
-                        <td>
-                            <p>Asked By: </p> <!--This will be fixed later -->
-                        </td>
+                        <p class="topic">{{ question.topics }}</p>
                     </tr>
                     <tr>
-                        <div class="divider"></div>
-                    </tr>
-                    <tr>
-                        <td class="body">{{ question.body }}</td>
-                    </tr>
-                    <tr>
-                        <td class="topic">{{ question.topics }}</td>
-                    </tr>
-                    <tr>
-                        <td class="edit">
+                        <div class="edit">
                             <form action="{{ url_for('new_question', question_id=question.id) }}" method="post">
                                 <button type="submit" class="delete">Edit</button>
                             </form>
-                        </td>
-                        <td>
                             <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
                                 <button type="submit" class="delete">Delete</button>
                             </form>
-                        </td>
+                        </div>
                     </tr>
                     {% endfor %}
                 </table>

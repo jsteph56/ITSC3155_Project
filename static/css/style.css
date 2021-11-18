@@ -212,7 +212,7 @@ body {
 
 .centered {
     position: relative;
-    margin-left: 25%;
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -251,14 +251,17 @@ body {
     position: relative;
     font-family: fontLight;
     font-size: 20px;
+    left: -22%;
 }
 
 .title {
     position: relative;
+    text-align: left;
     font-family: fontBold;
     font-size: 25px;
     color: white;
-    text-decoration: none;
+    margin-bottom: -1.2%;
+    margin-left: -35%;
 }
 
 .edit {
@@ -266,6 +269,10 @@ body {
     font-size: 20px;
     color: white;
     text-decoration: none;
+}
+
+.centered tr {
+    margin-left: -30%;
 }
 
 .delete {
@@ -293,4 +300,13 @@ a {
     margin-right: auto;
     width: 50%;
     height: 1px;
+}
+
+p {
+    font-family: fontLight;
+    text-align: left;
+}
+
+.asked {
+    margin-left: -40%;
 }
