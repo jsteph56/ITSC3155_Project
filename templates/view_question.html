@@ -34,9 +34,9 @@
             <h3>Description</h3>
             <p>{{ question.body }}</p>
 
-        <!--trying liking a post here-->
+            <!--trying liking a post here-->
             {% for question in questions %}
-              {% if session['user'].liked_question(question) %}
+              {% if the_user.liked_question(question) %}
                 <a href="{{ url_for('like', question_id=question.id, action='unlike') }}">Unlike</a>
               {% else %}
                 <a href="{{ url_for('like', question_id=question.id, action='like') }}">Like</a>
