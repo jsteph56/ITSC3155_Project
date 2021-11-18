@@ -56,12 +56,12 @@
                     </tr>
                     <tr>
                         <div class="edit">
-                            <form action="{{ url_for('new_question', question_id=question.id) }}" method="post">
-                                <button type="submit" class="delete">Edit</button>
-                            </form>
-                            <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
-                                <input type="submit" style="width: 90%;" value="Delete">
-                            </form>
+                            <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
+                            <td>
+                                <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
+                                    <input type="submit" style="width: 90%;" value="Delete">
+                                </form>
+                            </td>
                         </div>
                     </tr>
                     {% endfor %}
