@@ -13,10 +13,10 @@
             </a>
             <div class="navLinks">
                 <a href="{{ url_for('questions') }}">
-                    <h2 class="navCurrent">Home</h2>
+                    <h2 class="nav">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ url_for('reviews') }}">
-                    <h2 class="nav">Reviews</h2>
+                    <h2 class="navCurrent">Reviews</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ url_for('profile') }}">
                     <h2 class="nav">My Account</h2>
@@ -38,9 +38,9 @@
             </form>
             <button class="searchButton">Search</button>
 
-            <div class="leftText">
+            <div class="postedText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3>Recently Posted:</h3>
+                <h3 class="postedText">Recently Posted:</h3>
                 <table class="centered">
                     {% for question in questions %}
                     <tr>
@@ -56,12 +56,12 @@
                     </tr>
                     <tr>
                         <div class="edit">
-                            <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
-                            <td>
-                                <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
-                                    <input type="submit" style="width: 90%;" value="Delete">
-                                </form>
-                            </td>
+                            <form action="{{ url_for('new_question', question_id=question.id) }}" method="post">
+                                <button type="submit" class="delete">Edit</button>
+                            </form>
+                            <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
+                                <input type="submit" style="width: 90%;" value="Delete">
+                            </form>
                         </div>
                     </tr>
                     {% endfor %}
@@ -70,3 +70,4 @@
         </div>
     </body>
 </html>
+
