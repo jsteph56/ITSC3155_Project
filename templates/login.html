@@ -4,7 +4,7 @@
         <title>Aardvark Answers</title>
         <meta name="Home" content="3155 Project">
 		<meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     </head>
     <body>
         <div class="header">
@@ -15,19 +15,27 @@
             </div>
         </div>
         <div class="loginPage">
-            <h2>Please login with your Email and Password:</h2>
-            <form method="GET" action="/profile">
-                <table class="centered">
-                    <tr>
-                        <td><label class="required">Email:</label></td>
-                        <td><input type="email" title="Enter your email"></td>
-                    </tr>
-                    <tr>
-                        <td><label class="required">Password:</label></td>
-                        <td><input type="password" class="required" title="Enter your password" minlength="8"></td>
-                    </tr>
-                </table>
-                <button class="submit">Login</button>
+            <h2 class="title">Login</h2>
+            <form method="POST" action="/login">
+                <div class="form-field">{{ form.email.label }} {{ form.email }}
+                    {% if form.email.errors %}
+                    <ul class="errors">
+                        {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ form.password.label }} {{ form.password }}
+                    {% if form.password.errors %}
+                    <ul class="errors">
+                        {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit }}
             </form>
         </div>
     </body>

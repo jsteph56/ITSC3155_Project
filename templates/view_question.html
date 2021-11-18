@@ -21,18 +21,49 @@
                 <a href="{{ url_for('profile') }}">
                     <h2 class="nav">My Account</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{{ url_for('index') }}">
+                <a href="{{ url_for('logout') }}">
                     <h2 class="nav">Logout</h2>
                 </a>
             </div>
         </div>
-        <div class="questions">
-            <h1 class="postedText">Title</h1>
+        <div class="leftText">
+            <h1>Question</h1>
             <p>{{ question.header }}></p>
-            <h3 class="postedText">Topics</h3>
+            <h3>Topics</h3>
             <p>{{ question.topics }}</p>
-            <h3 class="postedText">Question</h3>
+            <h3>Description</h3>
             <p>{{ question.body }}</p>
+
+        <!--trying liking a post here-->
+            {% for question in questions %}
+              {% if session['user'].liked_question(question) %}
+                <a href="{{ url_for('like', question_id=question.id, action='unlike') }}">Unlike</a>
+              {% else %}
+                <a href="{{ url_for('like', question_id=question.id, action='like') }}">Like</a>
+              {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="leftText">
+             {% if question.comments %}
+              {% if question.comments|length > 0 %}
+                <h2>Comments</h2>
+                <ul>
+                {% for comment in question.comments %}
+                  <li>{{ comment.content }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endif %}
+            <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
+              <div class="formwrapper">
+                <h2 class="title">Add a comment</h2>
+                <div class="form-field">
+                  {{ form.comment.label }} <br/> {{ form.comment }}
+                </div>
+                {{ form.submit }}
+              </div>
+            </form>
         </div>
     </body>
 </html>

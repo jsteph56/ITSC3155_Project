@@ -21,7 +21,7 @@
                 <a href="{{ url_for('profile') }}">
                     <h2 class="navCurrent">My Account</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{{ url_for('index') }}">
+                <a href="{{ url_for('logout') }}">
                     <h2 class="nav">Logout</h2>
                 </a>
             </div>
@@ -33,8 +33,12 @@
             <h1>Account Overview</h1>
             <img src="../static/Images/profilePic.jpg" class="profilePic" alt="Profile Picture">
             <button class="uploadPic">Upload Photo</button>
-            <h2>Email:</h2>
+
+            {% for user in user_id %}
+            <h2>Email: {{ user.email }}</h2>
+            {% endfor %}
             <input value="Enter your email" class="login">
+
             <h2>Password:</h2>
             <input value="Enter your current password" class="login">
         </div>

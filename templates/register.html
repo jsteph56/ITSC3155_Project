@@ -4,38 +4,58 @@
         <title>Aardvark Answers</title>
         <meta name="Home" content="3155 Project">
 		<meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/forms.css') }}" />
     </head>
     <body>
         <div class="header">
             <img src="../static/Images/AardvarkLogo.png" alt="Aardvark Answers Logo" class="logo">
             <div class="welcomeHeader">
                 <h1>Welcome to Aardvark Answers</h1>
-                <!-- Once we get acounts functional we need to add a logout button -->
+                <!-- Once we get accounts functional we need to add a logout button -->
             </div>
         </div>
-        <div class="loginPage">
-            <h2>Please login with your Email and Password:</h2>
-            <form method="GET" action="./profile">
-                <table class="centered">
-                    <tr>
-                        <td><label class="required">First Name:</label></td>
-                        <td><input title="Please enter your first name"></td>
-                    </tr>
-                    <tr>
-                        <td><label class="required">Last Name:</label></td>
-                        <td><input title="Please enter your last name"></td>
-                    </tr>
-                    <tr>
-                        <td><label class="required">Email:</label></td>
-                        <td><input type="email" title="Please enter your email"></td>
-                    </tr>
-                    <tr>
-                        <td><label class="required">Password:</label></td>
-                        <td><input type="password" class="required" title="Please create your password, no shorter than 8 characters" minlength="8"></td>
-                    </tr>
-                </table>
-                <button class="submit">Register</button>
+
+        <div class="formwrapper">
+            <h2 class="title">Register</h2>
+            <form method="POST" action="/register">
+                <div class="form-field">{{ form.name.label }} {{ form.name }}
+                    {% if form.name.errors %}
+                    <ul class="errors">
+                        {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ form.email.label }} {{ form.email }}
+                    {% if form.email.errors %}
+                    <ul class="errors">
+                        {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ form.password.label }} {{ form.password }}
+                    {% if form.password.errors %}
+                    <ul class="errors">
+                        {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ form.confirmPassword.label }} {{ form.confirmPassword }}
+                    {% if form.confirmPassword.errors %}
+                    <ul class="errors">
+                        {% for error in form.confirmPassword.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit }}
             </form>
         </div>
     </body>
