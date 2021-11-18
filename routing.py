@@ -244,6 +244,16 @@ def like(question_id, action):
     return redirect(url_for('questions'))
 
 
+@app.route('/reviews')
+def reviews():
+     if session.get('user'):
+            # Retrieve questions from database
+            my_user = db.session.query(User).filter_by(id=session['user_id'])
+
+            return render_template('reviews.html', user_id=my_user, user=session['user'])
+     else:
+         return redirect(url_for('reviews'))
+
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
 # To see the web page in your web browser, go to the url,

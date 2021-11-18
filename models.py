@@ -79,3 +79,12 @@ class Comment(db.Model):
         self.content = content
         self.question_id = question_id
         self.user_id = user_id
+
+class Review(db.Model):
+    id = db.Column("id", db.Integer, primary_key=True)
+    body = db.Column("body", db.String(10000))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+    def __init__(self, body, user_id):
+        self.body = body
+        self.user_id = user_id
