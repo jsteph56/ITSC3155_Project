@@ -250,6 +250,7 @@ def like(question_id, action):
     else:
         return redirect(url_for('login'))
 
+#-------------REVIEWS------------
 
 @app.route('/reviews')
 def reviews():
@@ -260,6 +261,7 @@ def reviews():
             return render_template('reviews.html', user_id=my_user, user=session['user'])
      else:
          return redirect(url_for('reviews'))
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
