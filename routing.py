@@ -7,6 +7,7 @@ from database import db
 from models import Question as Question
 from models import User as User
 from models import Comment as Comment
+from models import Like as Like
 from forms import RegisterForm, LoginForm, CommentForm
 import bcrypt
 
@@ -232,16 +233,22 @@ def new_comment(question_id):
         return redirect(url_for('login'))
 
 
-@app.route('/questions/like/<question_id>/<action>')
+@app.route('/like/<question_id>/<action>')
 def like(question_id, action):
-    question = Question.query.filter_by(id=question_id).one()
-    if action == 'like':
-        session['user'].like_question(question)
-        db.session.commit()
-    if action == 'unlike':
-        session['user'].unlike_question(question)
-        db.session.commit()
-    return redirect(url_for('questions'))
+    if session.get('user'):
+        my_question = db.session.query(Question).filter_by(id=question_id).one()
+        user = db.session.query(User).filter_by(user_id=session['user_id'])
+
+        if action == 'like':
+            user.like_question(my_question)
+            db.session.commit()
+        if action == 'unlike':
+            user.unlike_question(my_question)
+            db.session.commit()
+
+        return redirect(url_for('view_question', question_id=question_id))
+    else:
+        return redirect(url_for('login'))
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
