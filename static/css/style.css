@@ -310,3 +310,8 @@ p {
 .asked {
     margin-left: -40%;
 }
+
+p.body {
+    margin-left: -25%;
+    text-align: left;
+}
