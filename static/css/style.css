@@ -98,9 +98,16 @@ body {
     margin-top: 35px;
 }
 
+.newQuestions {
+    color: white;
+    text-align: left;
+    align-items: center;
+    margin-top: 35px;
+}
+
 .searchText {
     position: relative;
-    margin-left: -21.5%;
+    margin-left: auto;
     margin-right: auto;
     margin-bottom: 4px;
     font-family: fontLight;
@@ -108,11 +115,32 @@ body {
 
 .search {
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
     width: 43%;
     height: 25px;
     background-color: #272638;
     border: solid 2px white;
     color: white;
+}
+
+.newQuestionWrapper {
+    text-align-last: center;
+}
+
+.newQuestionWrapper label {
+    text-align-last: left;
+}
+
+.body {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    width: 43%;
+    text-align: center;
 }
 
 .postedText {
@@ -336,3 +364,4 @@ th, td {
 .wrapper {
     position: relative;
 }
+
