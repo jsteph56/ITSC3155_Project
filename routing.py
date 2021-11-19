@@ -4,7 +4,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from database import db
-from models import Question as Question
+from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
@@ -123,9 +123,6 @@ def update_question(question_id):
             my_question = db.session.query(Question).filter_by(id=question_id).one()
 
             return render_template('new_question.html', question=my_question, user=session['user'])
-    else:
-        # User is not in session, so redirect to login
-        return redirect(url_for('login'))
 
 
 @app.route('/delete/<question_id>', methods=['POST'])
@@ -251,6 +248,9 @@ def like(question_id, action):
         return redirect(url_for('login'))
 
 
+#-------------REVIEWS------------
+
+
 @app.route('/reviews')
 def reviews():
      if session.get('user'):
@@ -260,6 +260,34 @@ def reviews():
             return render_template('reviews.html', user_id=my_user, user=session['user'])
      else:
          return redirect(url_for('reviews'))
+
+
+@app.route('/new_review', methods=['GET', 'POST'])
+def new_review():
+    # Check if user is saved in session
+    if session.get('user'):
+        # Check method used for request
+        if request.method == 'POST':
+            # Get question detail data
+            body = request.form['body']
+            # Get data stamp
+            from datetime import date
+            today = date.today()
+            # Format date mm/dd/yyy
+            today = today.strftime("%m-%d-%Y")
+            # Get the last ID used and increment by 1
+            # Create new question
+            new_record = Review(body, date, session['user_id'])
+            db.session.add(new_record)
+            db.session.commit()
+
+            return redirect(url_for('reviews'))
+        else:
+            # GET request - show new question form
+            return render_template('new_review.html', user=session['user'])
+    else:
+        # User is not in session, so redirect to login
+        return redirect(url_for('reviews'))
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
