@@ -43,6 +43,7 @@
                 <h3>Recently Posted:</h3>
                 <table class="centered">
                     {% for question in questions %}
+                    <div class="wrapper">
                     <tr>
                         <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
                         <p class="asked">Asked By: </p> <!--This will be fixed later -->
@@ -60,10 +61,11 @@
                                 <button type="submit" class="delete">Edit</button>
                             </form>
                             <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
-                                <input type="submit" style="width: 90%;" value="Delete">
+                                <button type="submit" class="delete">Delete</button>
                             </form>
                         </div>
                     </tr>
+                    </div>
                     {% endfor %}
                 </table>
             </div>
