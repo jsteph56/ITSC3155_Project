@@ -141,6 +141,7 @@ body {
     color: white;
     width: 43%;
     text-align: center;
+    font-family: fontLight;
 }
 
 .postedText {
@@ -365,3 +366,10 @@ th, td {
     position: relative;
 }
 
+.topics {
+    background-color: #272638;
+    border-color: white;
+    border: solid 2px white;
+    color: white;
+    font-family: fontLight;
+}
