@@ -53,6 +53,7 @@
                   <li>{{ comment.content }}</li>
                 {% endfor %}
                 </ul>
+                <br><br><br>
               {% endif %}
             {% endif %}
             <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
