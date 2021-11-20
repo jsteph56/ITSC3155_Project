@@ -4,7 +4,7 @@
         <title>Aardvark Answers</title>
         <meta name="Home" content="3155 Project">
 		<meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
         <div class="header">
@@ -34,36 +34,45 @@
         <div class="questions">
             <h3 class="searchText">Search questions, topics, and accounts</h3>
             <form>
-                <input class="search"></input>
+                <input class="search">
             </form>
             <button class="searchButton">Search</button>
 
             <div class="leftText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3>Recently Posted:</h3>
+                <h3 class="heading">Recently Posted:</h3>
                 <table class="centered">
                     {% for question in questions %}
+                    <div class="questionSpacer">
                     <tr>
                         <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
                         <p class="asked">Asked By: </p> <!--This will be fixed later -->
                     </tr>
                     <div class="divider"></div>
                     <tr>
-                        <p class="body">{{ question.body }}</p>
+                        <p class="bodyDisplay">{{ question.body }}</p>
                     </tr>
                     <tr>
-                        <p class="topic">{{ question.topics }}</p>
+                        <p class="topic">Topic: {{ question.topics }}</p>
                     </tr>
+                    <br><br><br>
                     <tr>
-                        <div class="edit">
-                            <td><a href="{{ url_for('update_question', question_id=question.id) }}">Edit</a></td>
-                            <td>
-                                <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
-                                    <input type="submit" style="width: 90%;" value="Delete">
-                                </form>
-                            </td>
+                        <div class="buttonDiv">
+                            <div class="edit">
+                                <tr>
+                                    <form action="{{ url_for('update_question', question_id=question.id) }}" method="GET">
+                                        <button class="questionButton">Edit</button>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
+                                        <button type="submit" value="Delete" class="questionButton">Delete</button>
+                                    </form>
+                                </tr>
+                            </div>
                         </div>
                     </tr>
+                    </div>
                     {% endfor %}
                 </table>
             </div>

@@ -122,6 +122,7 @@ body {
     background-color: #272638;
     border: solid 2px white;
     color: white;
+    font-family: fontLight;
 }
 
 .newQuestionWrapper {
@@ -277,7 +278,7 @@ body {
 }
 
 .topic {
-    position: fixed;
+    position: relative;
     font-family: fontLight;
     font-size: 20px;
     float: left;
@@ -285,8 +286,8 @@ body {
 
 .asked {
     float: left;
-    position: fixed;
-    margin-top: -2%;
+    position: relative;
+    margin-top: -3%;
 }
 
 .title {
@@ -294,7 +295,7 @@ body {
     font-family: fontBold;
     font-size: 25px;
     color: white;
-    margin-bottom: -1.2%;
+    margin-bottom: -7.2%;
     float: left;
     top: -85px;
 }
@@ -372,4 +373,35 @@ th, td {
     border: solid 2px white;
     color: white;
     font-family: fontLight;
+}
+
+.questionSpacer {
+    position: relative;
+    margin-top: 20%;
+}
+
+.heading {
+    margin-bottom: -10%;
+}
+
+.questionButton {
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    margin-right: 2%;
+    margin-left: auto;
+    border-radius: 40px;
+    color: #272638;
+    height: 3%;
+    width: 12.5%;
+    outline: white;
+    font-family: fontBold;
+    font-size: 20px;
+}
+
+.buttonDiv {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bodyDisplay {
+    text-align-last: left;
 }
