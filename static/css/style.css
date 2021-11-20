@@ -405,3 +405,63 @@ th, td {
 .bodyDisplay {
     text-align-last: left;
 }
+
+.error {
+    text-align: center;
+}
+
+#submit {
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 2%;
+    border-radius: 40px;
+    color: #272638;
+    height: 3%;
+    width: 9.5%;
+    outline: white;
+    font-family: fontBold;
+    font-size: 20px;
+}
+
+#password {
+    position: relative;
+    width: 300px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    object-position: center;
+    margin-top: 2%;
+}
+
+#email {
+    position: relative;
+    width: 370px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    object-position: center;
+    margin-top: 2%;
+}
+
+.form-field label {
+    padding-right: 10px;
+    position: relative;
+}
+
+.subTitle {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -2%;
+}
+
+.welcomeHeader h1 {
+    margin-top: -5px;
+    padding-bottom: 0.8%;
+}
