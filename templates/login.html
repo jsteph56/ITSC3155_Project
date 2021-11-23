@@ -8,13 +8,10 @@
     </head>
     <body>
         <div class="header">
-            <a href="index.html">
             <img src="../static/Images/AardvarkLogo.png" alt="Aardvark Answers Logo" class="logo">
-            </a>
             <div class="welcomeHeader">
                 <h1>Welcome Back to Aardvark Answers</h1>
                 <h2 class="subTitle">Login</h2>
-                <!-- Once we get acounts functional we need to add a logout button -->
             </div>
         </div>
         <div class="loginPage">
@@ -23,7 +20,7 @@
                     {% if form.email.errors %}
                     <ul class="errors">
                         {% for error in form.email.errors %}
-                        <p>{{ error }}</p>
+                        <p class="error">{{ error }}</p>
                         {% endfor %}
                     </ul>
                     {% endif %}

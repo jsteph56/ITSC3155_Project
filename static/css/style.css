@@ -430,7 +430,7 @@ th, td {
 
 #password {
     position: relative;
-    width: 300px;
+    width: 370px;
     height: 25px;
     background-color: #272638;
     border: solid 2px white;
@@ -439,6 +439,7 @@ th, td {
     margin-right: auto;
     object-position: center;
     margin-top: 2%;
+    margin-left: 6.5%;
 }
 
 #email {
@@ -452,11 +453,40 @@ th, td {
     margin-right: auto;
     object-position: center;
     margin-top: 2%;
+    margin-left: 8.5%;
+}
+
+#name {
+    position: relative;
+    width: 370px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    margin-right: auto;
+    object-position: center;
+    margin-top: 2%;
+    margin-left: 8%;
+}
+
+#confirmPassword {
+    position: relative;
+    width: 370px;
+    height: 25px;
+    background-color: #272638;
+    border: solid 2px white;
+    color: white;
+    margin-right: auto;
+    object-position: center;
+    margin-top: 2%;
+    margin-left: 2%;
 }
 
 .form-field label {
     padding-right: 10px;
     position: relative;
+    color: white;
+    font-family: fontLight;
 }
 
 .subTitle {
