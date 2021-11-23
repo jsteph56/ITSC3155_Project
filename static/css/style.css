@@ -281,6 +281,21 @@ body {
     font-size: 20px;
 }
 
+.button {
+    display: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 4%;
+    width: 9.5%;
+    outline: white;
+    font-family: fontBold;
+    font-size: 20px;
+}
+
 .topic {
     position: relative;
     font-family: fontLight;
