@@ -240,6 +240,10 @@ body {
     margin-top: 4%;
 }
 
+.loginPage p {
+    text-align: center;
+}
+
 .centered {
     position: relative;
     margin-left: auto;
