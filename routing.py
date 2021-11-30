@@ -277,20 +277,66 @@ def new_review():
             today = today.strftime("%m-%d-%Y")
             # Get the last ID used and increment by 1
             # Create new question
-            new_record = Review(body, date, session['user_id'])
-            db.session.add(new_record)
+            new_rev = Review(body, today, session['user_id'])
+            db.session.add(new_rev)
             db.session.commit()
 
             return redirect(url_for('reviews'))
         else:
-            # GET request - show new question form
+            # GET request - show new review form
             return render_template('new_review.html', user=session['user'])
     else:
         # User is not in session, so redirect to login
         return redirect(url_for('reviews'))
 
 
+@app.route('/delete/<review_id>', methods=['POST'])
+def delete_review(review_id):
+    # Check if a user is saved in session
+    if session.get('user'):
+        # Retrieve question from database
+        my_review = db.session.query(Review).filter_by(id=review_id).one()
+
+        db.session.delete(my_review)
+        db.session.commit()
+
+        return redirect(url_for('reviews'))
+    else:
+        # User is not in session, so redirect to login
+        return redirect(url_for('reviews'))
+
+
+@app.route('/reviews/edit/<review_id>', methods=['GET', 'POST'])
+def update_review(review_id):
+    # Check if user is saved in session
+    if session.get('user'):
+        # Check method used for request
+        if request.method == 'POST':
+            # Get question data
+            header = request.form['header']
+            body = request.form['body']
+
+            review = db.session.query(Review).filter_by(id=review_id).one()
+
+            # Update question data
+            review.header = header
+            review.body = body
+            # Update note in db
+            db.session.add(review)
+            db.session.commit()
+
+            return redirect(url_for('reviews'))
+        else:
+            # GET request - show new question form to edit question details
+            # Retrieve user from database
+            my_review = db.session.query(Question).filter_by(id=review_id).one()
+
+            return render_template('new_question.html', review=my_review, user=session['user'])
+
+
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
+
+
 
 # To see the web page in your web browser, go to the url,
 #   http://127.0.0.1:5000

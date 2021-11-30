@@ -98,7 +98,20 @@ body {
     margin-top: 35px;
 }
 
+.reviews {
+    color: white;
+    text-align-last: center;
+    margin-top: 35px;
+}
+
 .newQuestions {
+    color: white;
+    text-align: left;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.newReviews {
     color: white;
     text-align: left;
     align-items: center;

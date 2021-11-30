@@ -27,46 +27,30 @@
             </div>
         </div>
 
-        <form method="GET" action="./new_question">
-            <button class="postButton">Post a Question</button>
+        <form method="GET" action="./new_review">
+            <button class="postButton">Post a Review</button>
         </form>
 
-
-        <div class="questions">
-            <h3 class="searchText">Search questions, topics, and accounts</h3>
-            <form>
-                <input class="search"></input>
-            </form>
-            <button class="searchButton">Search</button>
-
-            <div class="postedText">
 	    <div class="leftText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="postedText">Recently Posted:</h3>
 
-		 <form method="GET" action="./new_review">
-                 	<button class="reviewButton">Post a Review</button>
-        	</form>
-
                 <table class="centered">
-                    {% for question in questions %}
+                    {% for review in reviews %}
                     <tr>
-                        <p class="title"><a href="{{ url_for('new_question', question_id=question.id) }}">{{ question.header }}</a></p>
-                        <p class="asked">Asked By: </p> <!--This will be fixed later -->
+                        <p class="title"><a href="{{ url_for('new_review', review_id=review.id) }}">{{ review.header }}</a></p>
+                        <p class="asked">Posted By: </p> <!--This will be fixed later -->
                     </tr>
                     <div class="divider"></div>
                     <tr>
-                        <p class="body">{{ question.body }}</p>
-                    </tr>
-                    <tr>
-                        <p class="topic">{{ question.topics }}</p>
+                        <p class="body">{{ review.body }}</p>
                     </tr>
                     <tr>
                         <div class="edit">
-                            <form action="{{ url_for('new_question', question_id=question.id) }}" method="post">
+                            <form action="{{ url_for('new_review',review_id=review.id) }}" method="post">
                                 <button type="submit" class="delete">Edit</button>
                             </form>
-                            <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
+                            <form action="{{ url_for('delete_review', review_id=review.id) }}" method="post">
                                 <input type="submit" style="width: 90%;" value="Delete">
                             </form>
                         </div>

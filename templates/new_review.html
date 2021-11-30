@@ -13,10 +13,10 @@
             </a>
             <div class="navLinks">
                 <a href="{{ url_for('questions') }}">
-                    <h2 class="navCurrent">Home</h2>
+                    <h2 class="nav">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a>
-                    <h2 class="nav">Reviews</h2>
+                    <h2 class="navCurrent">Reviews</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ url_for('profile') }}">
                     <h2 class="nav">My Account</h2>
@@ -26,22 +26,21 @@
                 </a>
             </div>
         </div>
-        <div class="questions">
+        <div class="reviews">
 
-            {% if question %}
+            {% if review %}
                 <form action="{{ url_for('new_review', user_id=my_user) }}" method="post">
             {% else %}
                 <form action ="new_review" method="post">
             {% endif %}
                     <p><label class="searchText">Title</label></p>
-                    <p><input class="search" type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
-                    <p><label class="searchText">Topics</label></p>
+                    <p><input class="search" type="text" name="header" value="{% if review %}{{review.header}} {% endif %}"/></p>
                     <!-- <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p> -->
-                    <p><label class="searchText">Reveiw</label></p>
+                    <p><label class="searchText">Review</label></p>
                     <p>
                         <textarea name="body" rows="10" cols="0" class="body">
-                            {% if question %}
-                                {{question.body}}
+                            {% if review %}
+                                {{review.body}}
                             {% else %}
                                 Type your review here
                             {% endif %}
@@ -49,7 +48,7 @@
                         </textarea>
                     </p>
                     <p>
-                        {% if question %}
+                        {% if review %}
                             <input class=postButton type="submit" value="Update Review"/>
                         {% else %}
                             <input class=postButton type="submit" value="Add Review"/>
