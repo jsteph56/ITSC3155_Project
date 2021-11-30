@@ -446,9 +446,11 @@ th, td {
 }
 
 .profileButton {
+    display: block;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
-    margin-right: 2%;
-    margin-left: auto;
+    margin-right: auto;
+    margin-left: 2%;
+    margin-top: -3%;
     border-radius: 40px;
     color: #272638;
     height: 3%;
@@ -456,7 +458,10 @@ th, td {
     outline: white;
     font-family: fontBold;
     font-size: 20px;
+    height: 60px;
+    width: 200px;
 }
+
 
 .buttonDiv {
     margin-left: auto;
