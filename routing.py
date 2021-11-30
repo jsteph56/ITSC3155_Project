@@ -31,7 +31,7 @@ with app.app_context():
 @app.route('/')
 @app.route('/index')
 def index():
-     # Check if a user is saved in session
+    # Check if a user is saved in session
     if session.get('user'):
         return render_template('index.html', user=session['user'])
     return render_template('index.html')
@@ -251,18 +251,18 @@ def like(question_id, action):
         return redirect(url_for('login'))
 
 
-#-------------REVIEWS------------
+# -------------REVIEWS------------
 
 
 @app.route('/reviews')
 def reviews():
-     if session.get('user'):
-            # Retrieve questions from database
-            my_user = db.session.query(User).filter_by(id=session['user_id'])
+    if session.get('user'):
+        # Retrieve questions from database
+        my_user = db.session.query(User).filter_by(id=session['user_id'])
 
-            return render_template('reviews.html', user_id=my_user, user=session['user'])
-     else:
-         return redirect(url_for('reviews'))
+        return render_template('reviews.html', user_id=my_user, user=session['user'])
+    else:
+        return redirect(url_for('reviews'))
 
 
 @app.route('/new_review', methods=['GET', 'POST'])
@@ -291,6 +291,7 @@ def new_review():
     else:
         # User is not in session, so redirect to login
         return redirect(url_for('reviews'))
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
