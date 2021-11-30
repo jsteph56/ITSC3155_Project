@@ -123,9 +123,6 @@ def update_question(question_id):
             my_question = db.session.query(Question).filter_by(id=question_id).one()
 
             return render_template('new_question.html', question=my_question, user=session['user'])
-    else:
-        # User is not in session, so redirect to login
-        return redirect(url_for('login'))
 
 
 @app.route('/delete/<question_id>', methods=['POST'])

@@ -31,6 +31,7 @@
             <button class="postButton">Post a Question</button>
         </form>
 
+
         <div class="questions">
             <h3 class="searchText">Search questions, topics, and accounts</h3>
             <form>
@@ -39,12 +40,18 @@
             <button class="searchButton">Search</button>
 
             <div class="postedText">
+	    <div class="leftText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="postedText">Recently Posted:</h3>
+
+		 <form method="GET" action="./new_review">
+                 	<button class="reviewButton">Post a Review</button>
+        	</form>
+
                 <table class="centered">
                     {% for question in questions %}
                     <tr>
-                        <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
+                        <p class="title"><a href="{{ url_for('new_question', question_id=question.id) }}">{{ question.header }}</a></p>
                         <p class="asked">Asked By: </p> <!--This will be fixed later -->
                     </tr>
                     <div class="divider"></div>

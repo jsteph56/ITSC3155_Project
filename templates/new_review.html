@@ -29,15 +29,15 @@
         <div class="questions">
 
             {% if question %}
-                <form action="{{ url_for('update_question', question_id=question.id) }}" method="post">
+                <form action="{{ url_for('new_review', user_id=my_user) }}" method="post">
             {% else %}
-                <form action ="new_question" method="post">
+                <form action ="new_review" method="post">
             {% endif %}
                     <p><label class="searchText">Title</label></p>
                     <p><input class="search" type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
                     <p><label class="searchText">Topics</label></p>
                     <!-- <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p> -->
-                    <p><label class="searchText">Question </label></p>
+                    <p><label class="searchText">Reveiw</label></p>
                     <p>
                         <textarea name="body" rows="10" cols="0" class="body">
                             {% if question %}
@@ -50,9 +50,9 @@
                     </p>
                     <p>
                         {% if question %}
-                            <input class=postButton type="submit" value="Update Question"/>
+                            <input class=postButton type="submit" value="Update Review"/>
                         {% else %}
-                            <input class=postButton type="submit" value="Add Question"/>
+                            <input class=postButton type="submit" value="Add Review"/>
                         {% endif %}
                     </p>
                 </form>

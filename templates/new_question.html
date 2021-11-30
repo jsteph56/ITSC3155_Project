@@ -13,7 +13,7 @@
             </a>
             <div class="navLinks">
                 <a href="{{ url_for('questions') }}">
-                    <h2 class="navCurrent">Home</h2>
+                    <h2 class="nav">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a>
                     <h2 class="nav">Reviews</h2>
@@ -26,35 +26,33 @@
                 </a>
             </div>
         </div>
-        <div class="questions">
+        <div class="newQuestions">
 
             {% if question %}
                 <form action="{{ url_for('update_question', question_id=question.id) }}" method="post">
             {% else %}
                 <form action ="new_question" method="post">
             {% endif %}
-                    <p><label class="searchText">Title</label></p>
-                    <p><input class="search" type="text" name="header" value="{% if question %}{{question.header}} {% endif %}"/></p>
-                    <p><label class="searchText">Topics</label></p>
-                    <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p>
-                    <p><label class="searchText">Question </label></p>
-                    <p>
-                        <textarea name="body" rows="10" cols="0" class="body">
-                            {% if question %}
-                                {{question.body}}
-                            {% else %}
-                                Add your question description here!!
-                            {% endif %}
-
-                        </textarea>
-                    </p>
-                    <p>
-                        {% if question %}
-                            <input class=postButton type="submit" value="Update Question"/>
-                        {% else %}
-                            <input class=postButton type="submit" value="Add Question"/>
-                        {% endif %}
-                    </p>
+                <div class="newQuestionWrapper">
+                    <label class="searchText">Title</label><br>
+                    <input class="search" type="text" name="header" title="Provide your question with a title" value="{% if question %}{{question.header}} {% endif %}"/><br><br>
+                    <label class="searchText">Topic</label><br>
+                    <select class="topics" type="text" name="topics" title="Which topic best fits your question?" value="{% if question %}{{question.topic}} {% endif %}"/>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Math">Math</option>
+                        <option value="English">English</option>
+                        <option value="Life Advice">Life Advice</option>
+                        <option value="Please just help me!!!">Please just help me!!!</option>
+                    </select><br><br>
+                    <label class="searchText">Question </label><br>
+                    <!--When these lines were broken onto new lines it was taking those new lines as being a part of the textarea, so it has a bunch of blank space-->
+                    <textarea name="body" rows="10" cols="0" class="body" title="Add your question description here!!">{% if question %}{{question.body}}{% endif %}</textarea><br>
+                    {% if question %}
+                        <input class=postButton type="submit" value="Update Question"/>
+                    {% else %}
+                        <input class=postButton type="submit" value="Add Question"/>
+                    {% endif %}
+                </div>
                 </form>
                 </form>
         </div>

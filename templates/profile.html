@@ -42,5 +42,10 @@
             <h2>Password:</h2>
             <input value="Enter your current password" class="login">
         </div>
+	 <div class="buttonDiv">
+              <div class="edit">
+      	           <form action="{{ url_for('register', user_id=user.id) }}" method="GET">
+             <button class="profileButton">Edit Profile</button>
+      </form>
     </body>
 </html>
