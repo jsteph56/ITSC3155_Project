@@ -42,9 +42,13 @@ def questions():
     # Check if user is saved in session
     if session.get('user'):
         # Retrieve questions from database
-        my_question = db.session.query(Question).filter_by(user_id=session['user_id']).all()
+        all_users = db.session.query(User).all()
+        
+        all_questions = db.session.query(Question).all()
+        user_questions = db.session.query(Question).filter_by(user_id=session['user_id']).all()
 
-        return render_template('questions.html', questions=my_question, user=session['user'])
+        return render_template('questions.html', questions=all_questions, user_questions=user_questions, 
+            user=session['user'], users=all_users)
     else:
         # Redirect user to login view
         return redirect(url_for('login'))

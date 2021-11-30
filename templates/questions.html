@@ -46,7 +46,11 @@
                     <div class="questionSpacer">
                     <tr>
                         <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
-                        <p class="asked">Asked By: </p> <!--This will be fixed later -->
+                        {% for user in users %}
+                        {% if question.user_id == user.id %}
+                        <p class="asked">Asked By: {{ user.name }}</p> <!--This will be fixed later -->
+                        {% endif %}
+                        {% endfor %}
                     </tr>
                     <div class="divider"></div>
                     <tr>
@@ -57,6 +61,8 @@
                     </tr>
                     <br><br><br>
                     <tr>
+                        {% for user_q in user_questions %}
+                        {% if question.id == user_q.id %}
                         <div class="buttonDiv">
                             <div class="edit">
                                 <tr>
@@ -71,6 +77,8 @@
                                 </tr>
                             </div>
                         </div>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
                     </div>
                     {% endfor %}
