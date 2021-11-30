@@ -204,11 +204,19 @@ body {
     margin-left: 20%;
     color: white;
     font-family: fontLight;
+    width: 30%;
+}
+
+.rightSide {
+    margin-top: -77vh;
+    margin-left: 55%;
+    color: white;
+    font-family: fontLight;
 }
 
 .profilePic {
     position: relative;
-    width: 25%;
+    width: 90%;
     border-radius: 50%;
     margin-left: -2vw;
 }
@@ -330,6 +338,16 @@ body {
     margin-bottom: -7.2%;
     float: left;
     top: -85px;
+}
+
+.title2 {
+    position: relative;
+    font-family: fontBold;
+    font-size: 25px;
+    color: white;
+    margin-bottom: -7.2%;
+    float: left;
+    top: -55px;
 }
 
 .edit {
