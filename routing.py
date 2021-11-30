@@ -150,8 +150,11 @@ def profile():
     if session.get('user'):
         # Retrieve questions from database
         my_user = db.session.query(User).filter_by(id=session['user_id'])
+        my_questions = db.session.query(Question).filter_by(id=session['user_id']).all()
+        my_comments = db.session.query(Comment).filter_by(id=session['user_id']).all()
 
-        return render_template('profile.html', user_id=my_user, user=session['user'])
+        return render_template('profile.html', questions=my_questions, comments=my_comments, 
+            user_id=my_user, user=session['user'])
     else:
         # Redirect user to login view
         return redirect(url_for('login'))

@@ -39,6 +39,22 @@
                 <button class="profileButton">Change Password</button>
             </form>
         </div>
+        <div class="rightSide">
+            <h1 class="heading">Your Questions</h1>
+            <table class="centered">
+                {% for question in questions %}
+                <div class="questionSpacer">
+                    <tr>
+                        <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}></a></p>
+                    </tr>
+                    <div class="divider"></div>
+                    <tr>
+                        <p class="topic">Topic: {{ question.topics }}</p>
+                    </tr>
+                </div>
+                {% endfor %}
+            </table>
+        </div>
       </form>
     </body>
 </html>
