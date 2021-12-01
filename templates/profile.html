@@ -40,20 +40,42 @@
             </form>
         </div>
         <div class="rightSide">
-            <h1 class="heading">Your Questions</h1>
-            <table class="centered">
-                {% for question in questions %}
-                <div class="questionSpacer">
-                    <tr>
-                        <p class="title2"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}></a></p>
-                    </tr>
-                    <div class="divider"></div>
-                    <tr>
-                        <p class="topic">Topic: {{ question.topics }}</p>
-                    </tr>
+            <div class="tabs">
+                <div class="tab">
+                    <input type="radio" id="tab-1" name="tab-group-1" checked>
+                    <label for="tab-1">Your Questions</label>
+                    <div class="content">
+                        <table class="centered">
+                            {% for question in questions %}
+                            <div class="questionSpacer">
+                                <tr>
+                                    <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
+                                </tr>
+                                <div class="divider"></div>
+                                <tr>
+                                    <p class="topic">Topic: {{ question.topics }}</p>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
-                {% endfor %}
-            </table>
+                <div class="tab">
+                    <input type="radio" id="tab-2" name="tab-group-1" checked>
+                    <label for="tab-2">Your Comments</label>
+                    <div class="content">
+                        <table class="centered">
+                            {% for comment in comments %}
+                            <div class="questionSpacer">
+                                <tr>
+                                    <p class="title"><a href="{{ url_for('view_question', question_id=comment.question_id) }}">{{ comment.content }}</a></p></p>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
       </form>
     </body>
