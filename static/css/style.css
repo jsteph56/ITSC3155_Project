@@ -579,3 +579,41 @@ th, td {
     margin-top: -5px;
     padding-bottom: 0.8%;
 }
+
+.tabs {
+    position: relative;   
+    min-height: 200px;
+    clear: both;
+    margin: 25px 0;
+  }
+  .tab {
+    float: left;
+  }
+  .tab label {
+    background: inherit; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    margin-left: -1px; 
+    position: relative;
+    left: 1px; 
+  }
+  .tab [type=radio] {
+    display: none;   
+  }
+  .content {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background: inherit;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+  }
+  [type=radio]:checked ~ label {
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-bottom: 1px solid white;
+    z-index: 2;
+  }
+  [type=radio]:checked ~ label ~ .content {
+    z-index: 1;
+  }
