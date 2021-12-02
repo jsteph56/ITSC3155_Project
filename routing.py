@@ -255,9 +255,9 @@ def like(question_id, action):
 def reviews():
     if session.get('user'):
         # Retrieve questions from database
-        my_user = db.session.query(User).filter_by(id=session['user_id'])
+        my_review = db.session.query(Review).filter_by(user_id=session['user_id']).all()
 
-        return render_template('reviews.html', user_id=my_user, user=session['user'])
+        return render_template('reviews.html', reviews=my_review, user=session['user'])
     else:
         return redirect(url_for('reviews'))
 

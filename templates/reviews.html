@@ -46,12 +46,12 @@
                         <p class="body">{{ review.body }}</p>
                     </tr>
                     <tr>
-                        <div class="edit">
+                        <div class="buttonDiv">
                             <form action="{{ url_for('new_review',review_id=review.id) }}" method="post">
-                                <button type="submit" class="delete">Edit</button>
+                                <button class="questionButton">Edit</button>
                             </form>
                             <form action="{{ url_for('delete_review', review_id=review.id) }}" method="post">
-                                <input type="submit" style="width: 90%;" value="Delete">
+                                <button type="submit" value="Delete" class="questionButton">Delete</button>
                             </form>
                         </div>
                     </tr>
