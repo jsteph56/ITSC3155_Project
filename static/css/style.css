@@ -208,7 +208,7 @@ body {
 }
 
 .rightSide {
-    margin-top: -77vh;
+    margin-top: -84vh;
     margin-left: 55%;
     color: white;
     font-family: fontLight;
@@ -585,7 +585,7 @@ th, td {
     min-height: 200px;
     clear: both;
     margin: 25px 0;
-  }
+}
 
   .tab {
     float: left;
@@ -617,8 +617,14 @@ th, td {
     background: inherit;
     border-bottom: 1px solid white;
     z-index: 2;
+    font-family: fontBold;
   }
   
   [type=radio]:checked ~ label ~ .content {
     z-index: 1;
+  }
+
+  .tab {
+      font-family: fontLight;
+      font-size: 25px;
   }
