@@ -13,7 +13,7 @@
             </a>
             <div class="navLinks">
                 <a href="{{ url_for('questions') }}">
-                    <h2 class="navCurrent">Home</h2>
+                    <h2 class="nav">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a>
                     <h2 class="nav">Reviews</h2>
@@ -47,7 +47,7 @@
         <div class="leftText">
              {% if question.comments %}
               {% if question.comments|length > 0 %}
-                <h2>Comments</h2>
+                <h2>Answers</h2>
                 <ul>
                 {% for comment in question.comments %}
                   <li>{{ comment.content }}</li>
@@ -58,7 +58,7 @@
             {% endif %}
             <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
               <div class="formwrapper">
-                <h2 class="title">Add a comment</h2>
+                <h2 class="title">Add an answer</h2>
                 <div class="form-field">
                   {{ form.comment.label }} <br/> {{ form.comment }}
                 </div>
