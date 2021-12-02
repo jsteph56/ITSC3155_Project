@@ -32,20 +32,51 @@
         <div class="leftSide">
             <h1>Account Overview</h1>
             <img src="../static/Images/profilePic.jpg" class="profilePic" alt="Profile Picture">
-            <button class="uploadPic">Upload Photo</button>
-
-            {% for user in user_id %}
-            <h2>Email: {{ user.email }}</h2>
-            {% endfor %}
-            <input value="Enter your email" class="login">
-
-            <h2>Password:</h2>
-            <input value="Enter your current password" class="login">
+            <form>
+                <button class="uploadPic">Upload Photo</button>
+            </form>
+            <form action="{{ url_for('register', user_id=user.id) }}" method="GET">
+                <button class="profileButton">Change Password</button>
+            </form>
         </div>
-	 <div class="buttonDiv">
-              <div class="edit">
-      	           <form action="{{ url_for('register', user_id=user.id) }}" method="GET">
-             <button class="profileButton">Edit Profile</button>
+        <div class="rightSide">
+            <div class="tabs">
+                <div class="tab">
+                    <input type="radio" id="tab-1" name="tab-group-1" checked>
+                    <label for="tab-1">Your Questions</label>
+                    <div class="content">
+                        <table class="centered">
+                            {% for question in questions %}
+                            <div class="questionSpacer">
+                                <tr>
+                                    <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
+                                </tr>
+                                <div class="divider"></div>
+                                <tr>
+                                    <p class="topic">Topic: {{ question.topics }}</p>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab-2" name="tab-group-1" checked>
+                    <label for="tab-2">Your Comments</label>
+                    <div class="content">
+                        <table class="centered">
+                            {% for comment in comments %}
+                            <div class="questionSpacer">
+                                <tr>
+                                    <p class="title"><a href="{{ url_for('view_question', question_id=comment.question_id) }}">{{ comment.content }}</a></p></p>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
       </form>
     </body>
 </html>

@@ -204,11 +204,19 @@ body {
     margin-left: 20%;
     color: white;
     font-family: fontLight;
+    width: 30%;
+}
+
+.rightSide {
+    margin-top: -77vh;
+    margin-left: 55%;
+    color: white;
+    font-family: fontLight;
 }
 
 .profilePic {
     position: relative;
-    width: 25%;
+    width: 90%;
     border-radius: 50%;
     margin-left: -2vw;
 }
@@ -332,6 +340,16 @@ body {
     top: -85px;
 }
 
+.title2 {
+    position: relative;
+    font-family: fontBold;
+    font-size: 25px;
+    color: white;
+    margin-bottom: -7.2%;
+    float: left;
+    top: -55px;
+}
+
 .edit {
     font-family: fontLight;
     font-size: 20px;
@@ -446,9 +464,11 @@ th, td {
 }
 
 .profileButton {
+    display: block;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
-    margin-right: 2%;
-    margin-left: auto;
+    margin-right: auto;
+    margin-left: 2%;
+    margin-top: -3%;
     border-radius: 40px;
     color: #272638;
     height: 3%;
@@ -456,7 +476,10 @@ th, td {
     outline: white;
     font-family: fontBold;
     font-size: 20px;
+    height: 60px;
+    width: 200px;
 }
+
 
 .buttonDiv {
     margin-left: auto;
@@ -556,3 +579,41 @@ th, td {
     margin-top: -5px;
     padding-bottom: 0.8%;
 }
+
+.tabs {
+    position: relative;   
+    min-height: 200px;
+    clear: both;
+    margin: 25px 0;
+  }
+  .tab {
+    float: left;
+  }
+  .tab label {
+    background: inherit; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    margin-left: -1px; 
+    position: relative;
+    left: 1px; 
+  }
+  .tab [type=radio] {
+    display: none;   
+  }
+  .content {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background: inherit;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+  }
+  [type=radio]:checked ~ label {
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-bottom: 1px solid white;
+    z-index: 2;
+  }
+  [type=radio]:checked ~ label ~ .content {
+    z-index: 1;
+  }
