@@ -43,7 +43,7 @@
                 <div class="tabs">
                 <div class="tab">
                     <input type="radio" id="tab-1" name="tab-group-1" checked>
-                    <label for="tab-1">Your Questions</label>
+                    <label for="tab-1">Questions</label>
                     <div class="content">
                         {% for question in questions %}
                             <p><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="tab">
                     <input type="radio" id="tab-2" name="tab-group-1">  
-                    <label for="tab-2">Your Comments</label>
+                    <label for="tab-2">Responses</label>
                     <div class="content">
                         <ul>
                             {% for comment in comments %}
