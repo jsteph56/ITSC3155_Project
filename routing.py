@@ -59,7 +59,7 @@ def view_question(question_id):
     # Check if user is saved in session
     if session.get('user'):
         # Retrieve note from database
-        my_questions = db.session.query(Question).filter_by(id=question_id, user_id=session['user_id']).one()
+        my_questions = db.session.query(Question).filter_by(id=question_id).one()
 
         # Create a comment form object
         form = CommentForm()
