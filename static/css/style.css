@@ -569,6 +569,14 @@ th, td {
     font-family: fontLight;
 }
 
+.form-field {
+    margin-right: 80%;
+}
+
+.addAnswer {
+    margin-top: -10%;
+}
+
 .subTitle {
     margin-left: auto;
     margin-right: auto;

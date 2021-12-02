@@ -5,6 +5,7 @@
         <meta name="Home" content="3155 Project">
 		<meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/forms.css') }}" />
     </head>
     <body>
         <div class="header">
@@ -56,15 +57,15 @@
                 <br><br><br>
               {% endif %}
             {% endif %}
-            <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
-              <div class="formwrapper">
-                <h2 class="title">Add an answer</h2>
-                <div class="form-field">
-                  {{ form.comment.label }} <br/> {{ form.comment }}
+              <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
+                <div class="titleDiv">
+                  <h2 class="title">Add an answer</h2>
                 </div>
-                {{ form.submit }}
-              </div>
-            </form>
+                  <div class="form-field">
+                    {{ form.comment.label }} <br/> {{ form.comment }}
+                  </div>
+                  {{ form.submit }}
+              </form>
         </div>
     </body>
 </html>
