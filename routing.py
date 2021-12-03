@@ -2,14 +2,19 @@
 
 # Imports
 import os
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, flash, render_template, request, redirect, url_for, session
 from database import db
 from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
 from forms import RegisterForm, LoginForm, CommentForm
+from os.path import join, dirname, realpath
+from werkzeug.utils import secure_filename
 import bcrypt
+
+UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'Static\Images')
+ALLOWED_EXTENSIONS = {'jpeg, png, jpg'}
 
 # Create the app
 app = Flask(__name__)
@@ -17,6 +22,7 @@ app = Flask(__name__)
 # Set name and location of database file
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aardvark_answers.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Secret key
 app.config['SECRET_KEY'] = 'SE3155'
 
@@ -153,11 +159,44 @@ def profile():
         my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
         my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
 
+        print(my_user)
         return render_template('profile.html', questions=my_questions, comments=my_comments, 
             user_id=my_user, user=session['user'])
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/profile', methods=["POST"])
+def uploadProfileImage():
+    if session.get('user'):
+        #variable declaration
+        my_user = db.session.query(User).filter_by(id=session['user_id'])
+        my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
+        my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
+
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+
+            file = request.files['file']
+            if file.filename == '':
+                flash('No file selected')
+                return redirect(request.url)
+
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return render_template('profile.html', questions=my_questions, comments=my_comments,
+                image=filename, user_id=my_user, user=session['user'])
+
+        else:
+            return render_template('profile.html', questions=my_questions, comments=my_comments,
+                user_id=my_user, user=session['user'])
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -340,6 +379,10 @@ def update_review(review_id):
 
             return render_template('new_question.html', review=my_review, user=session['user'])
 
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+        
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 

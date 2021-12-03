@@ -31,12 +31,17 @@
         </div>
         <div class="leftSide">
             <h1>Account Overview</h1>
-            <h1>{% if user %}{{user}}{% endif %}</h1>
-            <img src="../static/Images/AardvarkLogo.png" class="profilePic" alt="Profile Picture">
-            <form>
-                <button class="uploadPic">Upload Photo</button>
+            <h1>{% if user %}{{ user }}{% endif %}</h1>
+                {% if image %}
+                <img src="image" class="profilePic" alt="Profile Picture">
+                {% else %}
+                <img src="../static/Images/AardvarkLogo.png" class="profilePic" alt="Profile Picture">
+                {% endif %}
+            <form action="{{ url_for('uploadProfileImage') }}" method="POST">
+                <input type="file" id="imgUpload" name="image" accept="image/png, image/jpeg"></span>
+                <input type="submit" id="imgUpload">
             </form>
-            <form action="{{ url_for('register', user_id=user.id) }}" method="GET">
+            <form action="{{ url_for('register', user_id=user_id) }}" method="GET">
                 <button class="profileButton">Change Password</button>
             </form>
         </div>
@@ -57,7 +62,7 @@
                     <label for="tab-2" class="tab">Responses</label>
                     <div class="content">
                             {% for comment in comments %}
-                                <p>{{ comment.content }}</p>
+                                <p><a href="{{ url_for('view_question', question_id=comment.question_id) }}">&#8226;&nbsp;&nbsp;{{ comment.content }}</a></p>
                                 <div class="divider"></div>
                             {% endfor %}
                     </div>
