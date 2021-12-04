@@ -342,6 +342,10 @@ body {
     top: -85px;
 }
 
+.titleDiv {
+    margin-top: 10%;
+}
+
 .title2 {
     position: relative;
     font-family: fontBold;
