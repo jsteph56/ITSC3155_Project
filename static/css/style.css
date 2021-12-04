@@ -577,6 +577,26 @@ th, td {
     margin-right: 80%;
 }
 
+.form-field2 {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.form-field2 label {
+    position: relative;
+    margin-right: -5%;
+    color: white;
+    font-family: fontLight;
+}
+
+.form-field3 label {
+    position: relative;
+    color: white;
+    text-align: center;
+    font-family: fontLight;
+}
+
+
 .addAnswer {
     margin-top: -10%;
 }
