@@ -208,7 +208,7 @@ body {
 }
 
 .rightSide {
-    margin-top: -80vh;
+    margin-top: -45%;
     margin-left: 55%;
     position:relative;
     color: white;
@@ -707,4 +707,27 @@ th, td {
     height: 60px;
     width: 200px;
     cursor: pointer;
+  }
+
+.custom-file-input {
+    margin-left: 2%;
+    font-family: fontLight;
+    display: inline-block;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    display: block;
+    margin-right: auto;
+    margin-left: 12%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 30px;
+    width: 100px;
+    outline: white;
+    font-family: fontBold;
+    font-size: 20px;
   }
