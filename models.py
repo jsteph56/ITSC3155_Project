@@ -91,3 +91,12 @@ class Review(db.Model):
         self.body = body
         self.date = date
         self.user_id = user_id
+
+class ProfilePicture(db.Model):
+    id = db.Column("id", db.Integer, primary_key=True)
+    filename = db.Column("filename", db.String(150), nullable=False, profile_default='aardvark_logo.png')
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+    def __init__(self, user_id, filename):
+        self.user_id = user_id;
+        self.filename = filename;

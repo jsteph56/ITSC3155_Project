@@ -4,7 +4,7 @@
 import os
 from flask import Flask, flash, render_template, request, redirect, url_for, session
 from database import db
-from models import Question as Question, Review
+from models import ProfilePicture, Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
@@ -156,12 +156,12 @@ def profile():
     if session.get('user'):
         # Retrieve questions from database
         my_user = db.session.query(User).filter_by(id=session['user_id'])
+        my_picture = db.session.query(ProfilePicture).filter_by(id=session['user_id'])
         my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
         my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
 
-        print(my_user)
         return render_template('profile.html', questions=my_questions, comments=my_comments, 
-            user_id=my_user, user=session['user'])
+            picture=my_picture, user_id=my_user, user=session['user'])
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
@@ -170,34 +170,36 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/profile', methods=["POST"])
+@app.route('/profile', methods=["GET","POST"])
 def uploadProfileImage():
     if session.get('user'):
-        #variable declaration
         my_user = db.session.query(User).filter_by(id=session['user_id'])
         my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
         my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
-
+        
         if request.method == 'POST':
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
+            file = request.files['u_img']
 
-            file = request.files['file']
             if file.filename == '':
-                flash('No file selected')
-                return redirect(request.url)
-
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                return render_template('profile.html', questions=my_questions, comments=my_comments,
-                image=filename, user_id=my_user, user=session['user'])
-
+                file.filename = 'aardvark_answers.png'
+                filename = 'aardvark_answer.png'
+            else:
+                filename = file.filename
+                if allowed_file(filename):
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                else:
+                    flash("Invalid file-type; Please select a file of the following types: jpg, png, or jpeg")
+                    return redirect(url_for('profile'))
+                
+            profilePicture = ProfilePicture(session['user_id'], filename)
+            db.session.add(profilePicture)
+            db.session.commit()
+            return render_template('profile.html', questions=my_questions, comments=my_comments, 
+                picture=profilePicture, user_id=my_user, user=session['user'])
         else:
-            return render_template('profile.html', questions=my_questions, comments=my_comments,
-                user_id=my_user, user=session['user'])
-
+            redirect(url_for('profile'))
+    else:
+        redirect(url_for('login'))
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():

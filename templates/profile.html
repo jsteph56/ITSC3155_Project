@@ -33,12 +33,12 @@
             <h1>Account Overview</h1>
             <h1>{% if user %}{{ user }}{% endif %}</h1>
                 {% if image %}
-                <img src="image" class="profilePic" alt="Profile Picture">
+                <img src="{{ picture.filename }}" class="profilePic" alt="Profile Picture">
                 {% else %}
                 <img src="../static/Images/AardvarkLogo.png" class="profilePic" alt="Profile Picture">
                 {% endif %}
             <form action="{{ url_for('uploadProfileImage') }}" method="POST">
-                <input type="file" id="imgUpload" name="image" accept="image/png, image/jpeg" class="custom-file-input"></span>
+                <input type="file" id="imgUpload" name="u_img" accept="image/png, image/jpeg, image/jpg" enctype="multipart/form-data" class="custom-file-input"></span>
                 <input type="submit" id="imgUpload">
             </form>
             <form action="{{ url_for('register', user_id=user_id) }}" method="GET">
