@@ -268,7 +268,12 @@ def new_comment(question_id):
         if comment_form.validate_on_submit():
             # Get comment data
             comment_text = request.form['comment']
-            new_record = Comment(comment_text, int(question_id), session['user_id'])
+
+            from datetime import date
+            today = date.today()
+            today = today.strftime("%m-%d-%Y")
+
+            new_record = Comment(today, comment_text, int(question_id), session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -303,9 +308,10 @@ def like(question_id, action):
 def reviews():
     if session.get('user'):
         # Retrieve questions from database
-        my_review = db.session.query(Review).filter_by(user_id=session['user_id']).all()
-
-        return render_template('reviews.html', reviews=my_review, user=session['user'])
+        all_users = db.session.query(User).all()
+        all_reviews = db.session.query(Review).all()
+        
+        return render_template('reviews.html', reviews=all_reviews, users=all_users, user=session['user'])
     else:
         return redirect(url_for('reviews'))
 

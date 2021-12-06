@@ -31,30 +31,26 @@
             <button class="postButton">Post a Review</button>
         </form>
 
-	    <div class="leftText">
+	    <div class="questions">
+            <div class="leftText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
-                <h3 class="postedText">Recently Posted:</h3>
-
+                <h3 class="heading">Recently Posted:</h3>
                 <table class="centered">
                     {% for review in reviews %}
+                    <div class="questionSpacer">
                     <tr>
-                        <p class="title"><a href="{{ url_for('new_review', review_id=review.id) }}">{{ review.header }}</a></p>
-                        <p class="asked">Posted By: </p> <!--This will be fixed later -->
+                        {% for user in users %}
+                        {% if review.user_id == user.id %}
+                        <p class="title">Posted By: {{ user.name }}</p> <!--This will be fixed later -->
+                        {% endif %}
+                        {% endfor %}
+                        <p class="bodyDisplay">Date Posted: {{ review.date }}</p>
                     </tr>
                     <div class="divider"></div>
                     <tr>
-                        <p class="body">{{ review.body }}</p>
+                        <p class="bodyDisplay">{{ review.body }}</p>
                     </tr>
-                    <tr>
-                        <div class="buttonDiv">
-                            <form action="{{ url_for('new_review',review_id=review.id) }}" method="post">
-                                <button class="questionButton">Edit</button>
-                            </form>
-                            <form action="{{ url_for('delete_review', review_id=review.id) }}" method="post">
-                                <button type="submit" value="Delete" class="questionButton">Delete</button>
-                            </form>
-                        </div>
-                    </tr>
+                    </div>
                     {% endfor %}
                 </table>
             </div>

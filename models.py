@@ -74,8 +74,8 @@ class Comment(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
-    def __init__(self, content, question_id, user_id):
-        self.date_posted = datetime.date.today()
+    def __init__(self, date, content, question_id, user_id):
+        self.date_posted = date
         self.content = content
         self.question_id = question_id
         self.user_id = user_id
