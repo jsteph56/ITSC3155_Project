@@ -4,7 +4,7 @@
 import os
 from flask import Flask, flash, render_template, request, redirect, url_for, session
 from database import db
-from models import ProfilePicture, Question as Question, Review
+from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
@@ -156,12 +156,11 @@ def profile():
     if session.get('user'):
         # Retrieve questions from database
         my_user = db.session.query(User).filter_by(id=session['user_id'])
-        my_picture = db.session.query(ProfilePicture).filter_by(id=session['user_id'])
         my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
         my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
 
         return render_template('profile.html', questions=my_questions, comments=my_comments, 
-            picture=my_picture, user_id=my_user, user=session['user'])
+            user_id=my_user, user=session['user'])
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
@@ -178,7 +177,7 @@ def uploadProfileImage():
         my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
         
         if request.method == 'POST':
-            file = request.files['u_img']
+            file = request.files['file']
 
             if file.filename == '':
                 file.filename = 'aardvark_answers.png'
@@ -191,11 +190,8 @@ def uploadProfileImage():
                     flash("Invalid file-type; Please select a file of the following types: jpg, png, or jpeg")
                     return redirect(url_for('profile'))
                 
-            profilePicture = ProfilePicture(session['user_id'], filename)
-            db.session.add(profilePicture)
-            db.session.commit()
             return render_template('profile.html', questions=my_questions, comments=my_comments, 
-                picture=profilePicture, user_id=my_user, user=session['user'])
+                user_id=my_user, user=session['user'])
         else:
             redirect(url_for('profile'))
     else:

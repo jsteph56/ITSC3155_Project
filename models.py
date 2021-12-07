@@ -7,9 +7,7 @@ class Question(db.Model):
     body = db.Column("body", db.String(10000))
     date = db.Column("date", db.String(50))
     topics = db.Column("topics", db.String(10))
-    # imageURL = db.Column("imageURL", db.String(500)) - implement later
-    #Can create a foreign key
-    #Referencing the id variable in the User class, which is why it is a lowercase u
+    filename = db.Column("filename", db.String(150), nullable=False, server_default='aardvark_logo.png')
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     comments = db.relationship("Comment", backref="question", cascade="all, delete-orphan", lazy=True)
 
@@ -31,6 +29,7 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False)
     questions = db.relationship("Question", backref="user", lazy=True)
     comments = db.relationship("Comment", backref="user", lazy=True)
+    filename = db.Column("filename", db.String(150), nullable=False, server_default='aardvark_logo.png')
     liked = db.relationship("Like", foreign_keys="Like.user_id", backref="user", lazy='dynamic')
 
     def __init__(self, name, email, password):
@@ -87,12 +86,3 @@ class Review(db.Model):
         self.body = body
         self.date = date
         self.user_id = user_id
-
-class ProfilePicture(db.Model):
-    id = db.Column("id", db.Integer, primary_key=True)
-    filename = db.Column("filename", db.String(150), nullable=False, profile_default='aardvark_logo.png')
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-    def __init__(self, user_id, filename):
-        self.user_id = user_id;
-        self.filename = filename;

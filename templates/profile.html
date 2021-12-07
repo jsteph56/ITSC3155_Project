@@ -38,7 +38,7 @@
                 <img src="../static/Images/AardvarkLogo.png" class="profilePic" alt="Profile Picture">
                 {% endif %}
             <form action="{{ url_for('uploadProfileImage') }}" method="POST">
-                <input type="file" id="imgUpload" name="u_img" accept="image/png, image/jpeg, image/jpg" enctype="multipart/form-data" class="custom-file-input"></span>
+                <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg, image/jpg" enctype="multipart/form-data" class="custom-file-input"></span>
                 <input type="submit" id="imgUpload">
             </form>
             <form action="{{ url_for('register', user_id=user_id) }}" method="GET">
