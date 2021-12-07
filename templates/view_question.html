@@ -40,15 +40,12 @@
              {% if question.comments|length > 0 %}
              <h2>Answers</h2>
              <ul>
-                 {% for comment in question.comments %}
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <li>{{ comment.content }}</li>
-                  {% if user.liked_answer(answer) %}
-                   <a href="{{ url_for('like', answer_id=answer.id, action='unlike') }}">Unlike</a>
-                  {% else %}
-                   <a href="{{ url_for('like', answer_id=answer.id, action='like') }}">Like</a>
-                  {% endif %}
-                 {% endfor %}
+                {% for comment in question.comments %}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li>{{ comment.content }}</li>
+                    <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}">Unlike</a>
+                    <a href="{{ url_for('like', comment_id=comment.id, action='like') }}">Like</a>
+                {% endfor %}
              </ul>
              <br/>
              {% endif %}

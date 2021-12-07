@@ -286,20 +286,21 @@ def new_comment(question_id):
         return redirect(url_for('login'))
 
 
-@app.route('/like/<question_id>/<action>')
-def like(question_id, action):
+@app.route('/like/<comment_id>/<action>')
+def like(comment_id, action):
     if session.get('user'):
-        my_question = db.session.query(Question).filter_by(id=question_id).one()
-        user = db.session.query(User).filter_by(user_id=session['user_id'])
+        my_answer = db.session.query(Comment).filter_by(id=comment_id).one()
+        my_user = db.session.query(User).filter_by(id=session['user_id'])
+        print(my_user)
 
         if action == 'like':
-            user.like_question(my_question)
+            my_user.like_answer(my_answer)
             db.session.commit()
         if action == 'unlike':
-            user.unlike_question(my_question)
+            my_user.like_answer(my_answer)
             db.session.commit()
 
-        return redirect(url_for('view_question', question_id=question_id))
+        return redirect(url_for('view_question', question_id=comment_id))
     else:
         return redirect(url_for('login'))
 
