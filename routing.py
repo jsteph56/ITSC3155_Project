@@ -2,21 +2,25 @@
 
 # Imports
 import os
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, flash, render_template, request, redirect, url_for, session
 from database import db
 from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
 from forms import RegisterForm, LoginForm, CommentForm, SearchForm
+from werkzeug.utils import secure_filename
 import bcrypt
 
+UPLOAD_FOLDER = '/static/Images'
+ALLOWED_EXTENSIONS = {'png, jpg, jpeg'}
 # Create the app
 app = Flask(__name__)
 
 # Set name and location of database file
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aardvark_answers.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD FOLDER'] = UPLOAD_FOLDER
 # Secret key
 app.config['SECRET_KEY'] = 'SE3155'
 
@@ -169,6 +173,40 @@ def profile():
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/profile', methods=["GET","POST"])
+def uploadProfileImage():
+    if session.get('user'):
+        my_user = db.session.query(User).filter_by(id=session['user_id'])
+        my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
+        my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
+        
+        if request.method == 'POST':
+            file = request.files['file']
+            print(file)
+
+            if file.filename == '':
+                file.filename = 'aardvark_answers.png'
+                filename = 'aardvark_answer.png'
+            else:
+                filename = file.filename
+                if allowed_file(filename):
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                else:
+                    flash("Invalid file-type; Please select a file of the following types: jpg, png, or jpeg")
+                    return redirect(url_for('profile'))
+                
+            return render_template('profile.html', questions=my_questions, comments=my_comments, 
+                user_id=my_user, user=session['user'])
+        else:
+            redirect(url_for('profile'))
+    else:
+        redirect(url_for('login'))
 
 
 @app.route('/register', methods=['POST', 'GET'])
