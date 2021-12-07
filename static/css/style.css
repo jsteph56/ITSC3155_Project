@@ -208,8 +208,9 @@ body {
 }
 
 .rightSide {
-    margin-top: -77vh;
+    margin-top: -45%;
     margin-left: 55%;
+    position:relative;
     color: white;
     font-family: fontLight;
 }
@@ -244,6 +245,7 @@ body {
     margin-right: auto;
     margin-top: 1%;
     margin-bottom: 5%;
+    cursor: pointer;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
     border-radius: 40px;
     color: #272638;
@@ -338,6 +340,10 @@ body {
     margin-bottom: -7.2%;
     float: left;
     top: -85px;
+}
+
+.titleDiv {
+    margin-top: 10%;
 }
 
 .title2 {
@@ -466,9 +472,10 @@ th, td {
 .profileButton {
     display: block;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
+    position: relative;
     margin-right: auto;
     margin-left: 2%;
-    margin-top: -3%;
+    margin-top: 0%;
     border-radius: 40px;
     color: #272638;
     height: 3%;
@@ -478,6 +485,7 @@ th, td {
     font-size: 20px;
     height: 60px;
     width: 200px;
+    cursor: pointer;
 }
 
 
@@ -569,6 +577,34 @@ th, td {
     font-family: fontLight;
 }
 
+.form-field {
+    margin-right: 80%;
+}
+
+.form-field2 {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.form-field2 label {
+    position: relative;
+    margin-right: -5%;
+    color: white;
+    font-family: fontLight;
+}
+
+.form-field3 label {
+    position: relative;
+    color: white;
+    text-align: center;
+    font-family: fontLight;
+}
+
+
+.addAnswer {
+    margin-top: -10%;
+}
+
 .subTitle {
     margin-left: auto;
     margin-right: auto;
@@ -585,19 +621,26 @@ th, td {
     min-height: 200px;
     clear: both;
     margin: 25px 0;
-  }
+}
 
   .tab {
     float: left;
   }
 
   .tab label {
-    background: inherit; 
+    background: #272638; 
     padding: 10px; 
-    border: 1px solid #ccc; 
     margin-left: -1px; 
     position: relative;
-    left: 1px; 
+    left: 1px;
+  }
+
+  .tab label:hover {
+    background: #403e5b;
+    padding: 10px; 
+    margin-left: -1px; 
+    position: relative;
+    left: 1px;
   }
 
   .tab [type=radio] {
@@ -606,20 +649,85 @@ th, td {
 
   .content {
     position: absolute;
-    top: 28px;
+    top: 50px;
     left: 0;
     background: inherit;
     right: 0;
     bottom: 0;
     padding: 20px;
+    
+  }
+
+  .content > * {
+    opacity: 0;
+    transform: translateX(-100%);
+    /*transition: all 0.6s ease;*/
   }
 
   [type=radio]:checked ~ label {
-    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    background: inherit;
     border-bottom: 1px solid white;
     z-index: 2;
+    font-family: fontBold;
   }
   
   [type=radio]:checked ~ label ~ .content {
     z-index: 1;
+  }
+
+  [type="radio"]:checked ~ label ~ .content > * {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .tab {
+      font-family: fontLight;
+      font-size: 25px;
+  }
+  
+  #imgUpload {
+    position: relative;
+  }
+
+  #PictureLabel {
+    display: block;
+    position: relative;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    position: relative;
+    margin-right: auto;
+    margin-left: 2%;
+    margin-top: -3%;
+    border-radius: 40px;
+    color: #272638;
+    height: 3%;
+    width: 12.5%;
+    outline: white;
+    font-family: fontBold;
+    font-size: 20px;
+    height: 60px;
+    width: 200px;
+    cursor: pointer;
+  }
+
+.custom-file-input {
+    margin-left: 2%;
+    font-family: fontLight;
+    display: inline-block;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    display: block;
+    margin-right: auto;
+    margin-left: 12%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background: linear-gradient(to right, #00b7ff, #ffffc7);
+    border-radius: 40px;
+    color: #272638;
+    height: 30px;
+    width: 100px;
+    outline: white;
+    font-family: fontBold;
+    font-size: 20px;
   }

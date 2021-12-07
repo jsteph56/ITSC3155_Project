@@ -17,7 +17,7 @@
         </div>
         <div class="loginPage">
             <form method="POST" action="/register">
-                <div class="form-field">{{ form.name.label }} {{ form.name }}
+                <div class="form-field3">{{ form.name.label }} {{ form.name }}
                     {% if form.name.errors %}
                     <ul class="errors">
                         {% for error in form.name.errors %}
@@ -26,7 +26,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.email.label }} {{ form.email }}
+                <div class="form-field3">{{ form.email.label }} {{ form.email }}
                     {% if form.email.errors %}
                     <ul class="errors">
                         {% for error in form.email.errors %}
@@ -35,7 +35,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.password.label }} {{ form.password }}
+                <div class="form-field3">{{ form.password.label }} {{ form.password }}
                     {% if form.password.errors %}
                     <ul class="errors">
                         {% for error in form.password.errors %}
@@ -44,7 +44,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.confirmPassword.label }} {{ form.confirmPassword }}
+                <div class="form-field3">{{ form.confirmPassword.label }} {{ form.confirmPassword }}
                     {% if form.confirmPassword.errors %}
                     <ul class="errors">
                         {% for error in form.confirmPassword.errors %}

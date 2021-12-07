@@ -31,38 +31,59 @@
         </div>
         <div class="leftSide">
             <h1>Account Overview</h1>
-            <img src="../static/Images/profilePic.jpg" class="profilePic" alt="Profile Picture">
-            <form>
-                <button class="uploadPic">Upload Photo</button>
+            <h1>{% if user %}{{ user }}{% endif %}</h1>
+                {% if image %}
+                <img src="{{ picture.filename }}" class="profilePic" alt="Profile Picture">
+                {% else %}
+                <img src="../static/Images/AardvarkLogo.png" class="profilePic" alt="Profile Picture">
+                {% endif %}
+            <form action="{{ url_for('uploadProfileImage') }}" method="POST">
+                <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg, image/jpg" enctype="multipart/form-data" class="custom-file-input"></span>
+                <input type="submit" id="imgUpload">
             </form>
-            <form action="{{ url_for('register', user_id=user.id) }}" method="GET">
+            <form action="{{ url_for('register', user_id=user_id) }}" method="GET">
                 <button class="profileButton">Change Password</button>
             </form>
         </div>
         <div class="rightSide">
-                <div class="tabs">
+            <div class="tabs">
                 <div class="tab">
                     <input type="radio" id="tab-1" name="tab-group-1" checked>
-                    <label for="tab-1">Your Questions</label>
+                    <label for="tab-1" class="tab">Questions</label>
                     <div class="content">
                         {% for question in questions %}
-                            <p><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
+                            <p><a href="{{ url_for('view_question', question_id=question.id) }}">&#8226;&nbsp;&nbsp;{{ question.header }}</a></p>
+                            <p>Date Posted: {{ question.date }}</p>
+                            <div class="divider"></div>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="tab">
                     <input type="radio" id="tab-2" name="tab-group-1">  
-                    <label for="tab-2">Your Comments</label>
+                    <label for="tab-2" class="tab">Responses</label>
                     <div class="content">
-                        <ul>
                             {% for comment in comments %}
-                                <li>{{ comment.content }}</li>
+                                <p><a href="{{ url_for('view_question', question_id=comment.question_id) }}">&#8226;&nbsp;&nbsp;{{ comment.content }}</a></p>
+                                <p class="bodyDisplay">Date Posted: {{ comment.date }}</p>
+                                <div class="divider"></div>
                             {% endfor %}
-                        </ul>
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab-3" name="tab-group-1">
+                    <label for="tab-3" class="tab">Likes</label>
+                    <div class="content">
+                        <p>Test</p>
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab-4" name="tab-group-1">
+                    <label for="tab-4" class="tab">Dislikes</label>
+                    <div class="content">
+                        <p>Test</p>
                     </div>
                 </div>
             </div>
         </div>
-      </form>
     </body>
 </html>
