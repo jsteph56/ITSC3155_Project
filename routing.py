@@ -2,7 +2,7 @@
 
 # Imports
 import os
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from database import db
 from models import Question as Question, Review
 from models import User as User
@@ -40,10 +40,10 @@ def index():
 @app.route('/questions')
 def questions():
     # Check if user is saved in session
-    search = SearchForm()
+    searchbar = SearchForm()
 
-    if request.method == 'POST' and search.validate_on_submit():
-        return redirect((url_for('search_results', result=search.search.data)))
+    if request.method == 'POST' and searchbar.validate_on_submit():
+        return search_results(searchbar)
 
     if session.get('user'):
         # Retrieve questions from database
@@ -58,11 +58,23 @@ def questions():
         # Redirect user to login view
         return redirect(url_for('login'))
 
+
 @app.route('/questions/search_results')
-def search_results(result):
-    results = User.query.whoosh_search(result).all()
-    form = SearchForm()
-    return render_template('view_question.html', question=results, user=session['user'], form=form)
+def search_results(searchbar):
+    results = []
+    search_string = search.data['search']
+
+    if search.data['search'] == '':
+        results = db.all()
+
+    if not results:
+        flash('No results found')
+        return redirect(url_for('questions'))
+    else:
+        return render_template('search_results.html', results = results)
+
+
+
 
 
 @app.route('/questions/<question_id>')
@@ -350,6 +362,7 @@ def update_review(review_id):
             my_review = db.session.query(Question).filter_by(id=review_id).one()
 
             return render_template('new_question.html', review=my_review, user=session['user'])
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
