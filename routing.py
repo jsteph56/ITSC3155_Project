@@ -8,7 +8,7 @@ from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
-from forms import RegisterForm, LoginForm, CommentForm
+from forms import RegisterForm, LoginForm, CommentForm, SearchForm
 import bcrypt
 
 # Create the app
@@ -40,18 +40,29 @@ def index():
 @app.route('/questions')
 def questions():
     # Check if user is saved in session
+    search = SearchForm()
+
+    if request.method == 'POST' and search.validate_on_submit():
+        return redirect((url_for('search_results', result=search.search.data)))
+
     if session.get('user'):
         # Retrieve questions from database
         all_users = db.session.query(User).all()
-        
+
         all_questions = db.session.query(Question).all()
         user_questions = db.session.query(Question).filter_by(user_id=session['user_id']).all()
 
-        return render_template('questions.html', questions=all_questions, user_questions=user_questions, 
-            user=session['user'], users=all_users)
+        return render_template('questions.html', questions=all_questions, user_questions=user_questions,
+                               user=session['user'], users=all_users)
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
+
+@app.route('/questions/search_results')
+def search_results(result):
+    results = User.query.whoosh_search(result).all()
+    form = SearchForm()
+    return render_template('view_question.html', question=results, user=session['user'], form=form)
 
 
 @app.route('/questions/<question_id>')
@@ -153,8 +164,8 @@ def profile():
         my_questions = db.session.query(Question).filter_by(id=session['user_id']).all()
         my_comments = db.session.query(Comment).filter_by(id=session['user_id']).all()
 
-        return render_template('profile.html', questions=my_questions, comments=my_comments, 
-            user_id=my_user, user=session['user'])
+        return render_template('profile.html', questions=my_questions, comments=my_comments,
+                               user_id=my_user, user=session['user'])
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
@@ -340,10 +351,18 @@ def update_review(review_id):
 
             return render_template('new_question.html', review=my_review, user=session['user'])
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        search_term = form.query.data
+        results = db.query.all()
+        return render_template('search.html', form=form, results=results)
+
+    return render_template('search.html', form=form)
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
-
-
 
 # To see the web page in your web browser, go to the url,
 #   http://127.0.0.1:5000

@@ -56,3 +56,21 @@ class CommentForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[Length(min=1)])
 
     submit = SubmitField('Add Comment')
+
+
+class SearchForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    search = StringField('search', [DataRequired()])
+    #submit = SubmitField('search', render_kw = {'class': 'btn btn-success btn-block'})
+
+
+
+
+
+
+
+
+
+
