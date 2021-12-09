@@ -29,7 +29,7 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False)
     questions = db.relationship("Question", backref="user", lazy=True)
     comments = db.relationship("Comment", backref="user", lazy=True)
-    filename = db.Column("filename", db.String(150), nullable=False, server_default='aardvark_logo.png')
+    filename = db.Column("filename", db.String(150), nullable=False, server_default='LDance.gif')
     liked = db.relationship("Like", foreign_keys="Like.user_id", backref="user", lazy='dynamic')
 
     def __init__(self, name, email, password):

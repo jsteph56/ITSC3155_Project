@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename
 import bcrypt
 
 UPLOAD_FOLDER = '/static/Images'
-ALLOWED_EXTENSIONS = {'png, jpg, jpeg'}
+ALLOWED_EXTENSIONS = set('png, jpg, jpeg, gif')
 # Create the app
 app = Flask(__name__)
 
@@ -165,8 +165,8 @@ def profile():
     if session.get('user'):
         # Retrieve questions from database
         my_user = db.session.query(User).filter_by(id=session['user_id'])
-        my_questions = db.session.query(Question).filter_by(id=session['user_id']).all()
-        my_comments = db.session.query(Comment).filter_by(id=session['user_id']).all()
+        my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
+        my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
 
         return render_template('profile.html', questions=my_questions, comments=my_comments,
                                user_id=my_user, user=session['user'])
@@ -191,8 +191,8 @@ def uploadProfileImage():
             print(file)
 
             if file.filename == '':
-                file.filename = 'aardvark_answers.png'
-                filename = 'aardvark_answer.png'
+                file.filename = 'LDance.gif'
+                filename = 'LDance.gif'
             else:
                 filename = file.filename
                 if allowed_file(filename):
@@ -201,6 +201,10 @@ def uploadProfileImage():
                     flash("Invalid file-type; Please select a file of the following types: jpg, png, or jpeg")
                     return redirect(url_for('profile'))
                 
+            current_user = User.query.filter_by(id=session['user_id']).first()
+            current_user.filename = filename
+            db.session.commit()
+            
             return render_template('profile.html', questions=my_questions, comments=my_comments, 
                 user_id=my_user, user=session['user'])
         else:
