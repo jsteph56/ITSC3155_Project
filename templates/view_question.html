@@ -47,6 +47,7 @@
                   <li>{{ comment.content }}</li>
                   <!-- liking/disliking answers -->
                   {% if my_user.liked_answer(comment) %}
+                  
                    <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}">Unlike</a>
                   {% else %}
                    <a href="{{ url_for('like', comment_id=comment.id, action='like') }}">Like</a>

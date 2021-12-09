@@ -301,15 +301,14 @@ def new_comment(question_id):
 def like(comment_id, action):
     if session.get('user'):
         new_like = Like(session['user_id'], int(comment_id))
-
         if action == 'like':
             db.session.add(new_like)
             db.session.commit()
         if action == 'unlike':
-            db.session.delete(Like.query.filter_by(answer_id=comment_id).first())
+            db.session.delete(Like.query.filter(Like.answer_id==comment_id, Like.user_id==session['user_id']).first())
             db.session.commit()
-
-        return redirect(url_for('view_question', question_id=comment_id))
+        comment = db.session.query(Comment).filter(Comment.id == comment_id).first()
+        return redirect(url_for('view_question', question_id=comment.question_id))
     else:
         return redirect(url_for('login'))
 
