@@ -732,3 +732,7 @@ input[type="submit"] {
     font-family: fontBold;
     font-size: 20px;
   }
+
+  .like {
+      border: 1px solid white;
+  }
