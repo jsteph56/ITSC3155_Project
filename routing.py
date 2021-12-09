@@ -9,18 +9,19 @@ from models import User as User
 from models import Comment as Comment
 from models import Like as Like
 from forms import RegisterForm, LoginForm, CommentForm, SearchForm
+from os.path import join, dirname, realpath
 from werkzeug.utils import secure_filename
 import bcrypt
 
-UPLOAD_FOLDER = '/static/Images'
-ALLOWED_EXTENSIONS = set('png, jpg, jpeg, gif')
+UPLOAD_FOLDER = 'static\Images'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 # Create the app
 app = Flask(__name__)
 
 # Set name and location of database file
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aardvark_answers.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Secret key
 app.config['SECRET_KEY'] = 'SE3155'
 
@@ -188,13 +189,13 @@ def uploadProfileImage():
         
         if request.method == 'POST':
             file = request.files['file']
-            print(file)
-
             if file.filename == '':
                 file.filename = 'LDance.gif'
                 filename = 'LDance.gif'
             else:
                 filename = file.filename
+                print(filename)
+                print(allowed_file(filename))
                 if allowed_file(filename):
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
                 else:
@@ -300,15 +301,14 @@ def new_comment(question_id):
 def like(comment_id, action):
     if session.get('user'):
         new_like = Like(session['user_id'], int(comment_id))
-
         if action == 'like':
             db.session.add(new_like)
             db.session.commit()
         if action == 'unlike':
-            db.session.delete(Like.query.filter_by(answer_id=comment_id).first())
+            db.session.delete(Like.query.filter(Like.answer_id==comment_id, Like.user_id==session['user_id']).first())
             db.session.commit()
-
-        return redirect(url_for('view_question', question_id=comment_id))
+        comment = db.session.query(Comment).filter(Comment.id == comment_id).first()
+        return redirect(url_for('view_question', question_id=comment.question_id))
     else:
         return redirect(url_for('login'))
 
