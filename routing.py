@@ -75,11 +75,11 @@ def view_question(question_id):
     if session.get('user'):
         # Retrieve note from database
         my_questions = db.session.query(Question).filter_by(id=question_id).one()
-
+        my_user = db.session.query(User).filter_by(id=session['user_id']).first()
         # Create a comment form object
         form = CommentForm()
 
-        return render_template('view_question.html', question=my_questions, user=session['user'], form=form)
+        return render_template('view_question.html', question=my_questions, user=session['user'], my_user=my_user, form=form)
     else:
         return redirect(url_for('login'))
 
@@ -276,7 +276,13 @@ def new_comment(question_id):
         if comment_form.validate_on_submit():
             # Get comment data
             comment_text = request.form['comment']
-            new_record = Comment(comment_text, int(question_id), session['user_id'])
+            # Get data stamp
+            from datetime import date
+            today = date.today()
+            # Format date mm/dd/yy
+            today = today.strftime("%m-%d-%Y")
+            # Create new comment
+            new_record = Comment(today, comment_text, int(question_id), session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -286,26 +292,21 @@ def new_comment(question_id):
         return redirect(url_for('login'))
 
 
-@app.route('/like/<comment_id>/<action>')
+@app.route('/questions/<comment_id>/<action>')
 def like(comment_id, action):
     if session.get('user'):
-        my_answer = db.session.query(Comment).filter_by(id=comment_id).one()
-        my_user = db.session.query(User).filter_by(id=session['user_id'])
-        print(my_user)
+        new_like = Like(session['user_id'], int(comment_id))
 
         if action == 'like':
-            my_user.like_answer(my_answer)
+            db.session.add(new_like)
             db.session.commit()
         if action == 'unlike':
-            my_user.like_answer(my_answer)
+            db.session.delete(Like.query.filter_by(answer_id=comment_id).first())
             db.session.commit()
 
         return redirect(url_for('view_question', question_id=comment_id))
     else:
         return redirect(url_for('login'))
-
-
-# -------------REVIEWS------------
 
 
 @app.route('/reviews')
@@ -332,7 +333,6 @@ def new_review():
             today = date.today()
             # Format date mm/dd/yyy
             today = today.strftime("%m-%d-%Y")
-            # Get the last ID used and increment by 1
             # Create new question
             new_rev = Review(body, today, session['user_id'])
             db.session.add(new_rev)
@@ -389,6 +389,7 @@ def update_review(review_id):
             my_review = db.session.query(Question).filter_by(id=review_id).one()
 
             return render_template('new_question.html', review=my_review, user=session['user'])
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():

@@ -1,13 +1,14 @@
 from database import db
 import datetime
 
+
 class Question(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     header = db.Column("header", db.String(300))
     body = db.Column("body", db.String(10000))
     date = db.Column("date", db.String(50))
     topics = db.Column("topics", db.String(10))
-    #filename = db.Column("filename", db.String(150), nullable=False, server_default='aardvark_logo.png')
+    # filename = db.Column("filename", db.String(150), nullable=False, server_default='aardvark_logo.png')
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     comments = db.relationship("Comment", backref="question", cascade="all, delete-orphan", lazy=True)
 
@@ -15,16 +16,10 @@ class Question(db.Model):
         self.header = header
         self.body = body
         self.date = date
-
         self.topics = topics
         # self.imageURL = imageURL
         self.user_id = user_id
 
-class Like(db.Model):
-    __tablename__ = "like"
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    answer_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -43,17 +38,19 @@ class User(db.Model):
         self.password = password
         self.registered_on = datetime.date.today()
 
-    def like_answer(self, answer):
-       if not self.liked_answer(answer):
-            like = Like(user_id=self.id, answer_id=answer.id)
-            db.session.add(like)
-
-    def unlike_answer(self, answer):
-        if self.liked_answer(answer):
-            Like.query.filter_by(user_id=self.id, answer_id=answer.id).delete()
-
     def liked_answer(self, answer):
         return Like.query.filter(Like.user_id == self.id, Like.answer_id == answer.id).count() > 0
+
+
+class Like(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    answer_id = db.Column(db.Integer, db.ForeignKey("comment.id"), nullable=False)
+
+    def __init__(self, user_id, answer_id):
+        self.user_id = user_id
+        self.answer_id = answer_id
+
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -61,28 +58,13 @@ class Comment(db.Model):
     content = db.Column(db.VARCHAR, nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    likes = db.Column("likes", db.Integer)
-    dislikes = db.Column("dislikes", db.Integer)
+    likes = db.relationship("Like", backref="comment", lazy=True)
 
     def __init__(self, date, content, question_id, user_id):
         self.date = date
         self.content = content
         self.question_id = question_id
         self.user_id = user_id
-
-    #def like_answer(self, answer):
-    #   if not self.liked_answer(answer):
-    #        like = Like(user_id=self.user_id, answer_id=self.id)
-    #        db.session.add(like)
-    #        self.likes += 1
-
-    #def unlike_answer(self, answer):
-    #    if self.liked_answer(answer):
-    #        Like.query.filter_by(user_id=self.user_id, answer_id=self.id).delete()
-    #        self.likes -= 1
-
-    #def liked_answer(self, answer):
-    #    return Like.query.filter(Like.user_id == self.user_id, Like.answer_id == self.id).count() > 0
 
 
 class Review(db.Model):

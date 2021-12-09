@@ -65,22 +65,22 @@
                     <br><br><br>
                     <tr>
                         {% for user_q in user_questions %}
-                        {% if question.id == user_q.id %}
-                        <div class="buttonDiv">
-                            <div class="edit">
-                                <tr>
+                         {% if question.id == user_q.id %}
+                         <div class="buttonDiv">
+                             <div class="edit">
+                                 <tr>
                                     <form action="{{ url_for('update_question', question_id=question.id) }}" method="GET">
-                                        <button class="questionButton">Edit</button>
+                                        <button type="submit" value="Edit" class="questionButton">Edit</button>
                                     </form>
-                                </tr>
-                                <tr>
-                                    <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
-                                        <button type="submit" value="Delete" class="questionButton">Delete</button>
-                                    </form>
-                                </tr>
-                            </div>
-                        </div>
-                        {% endif %}
+                                 </tr>
+                                 <tr>
+                                     <form action="{{ url_for('delete_question', question_id=question.id) }}" method="post">
+                                         <button type="submit" value="Delete" class="questionButton">Delete</button>
+                                     </form>
+                                 </tr>
+                             </div>
+                         </div>
+                         {% endif %}
                         {% endfor %}
                     </tr>
                     </div>
