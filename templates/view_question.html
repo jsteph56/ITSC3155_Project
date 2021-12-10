@@ -49,7 +49,9 @@
                   {% if my_user.liked_answer(comment) %}
                    <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="like">Unlike</a>
                   {% else %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="like">Like</a>
+                   <div class="buttonDiv">
+                       <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
+                   </div>
                   {% endif %}
                   <p>{{ comment.likes|length }} likes</p>
 

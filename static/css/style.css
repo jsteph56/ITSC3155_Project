@@ -448,10 +448,14 @@ th, td {
     border-radius: 40px;
     color: #272638;
     height: 3%;
-    width: 12.5%;
+    width: 10%;
     outline: white;
     font-family: fontBold;
-    font-size: 20px;
+    font-size: 17px;
+    padding: .5%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
 }
 
 
@@ -732,8 +736,4 @@ input[type="submit"] {
     outline: white;
     font-family: fontBold;
     font-size: 20px;
-  }
-
-  .like {
-      border: 1px solid white;
   }
