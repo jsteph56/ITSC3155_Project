@@ -8,6 +8,7 @@ from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
+from models import Dislike as Dislike
 from forms import RegisterForm, LoginForm, CommentForm, SearchForm
 from os.path import join, dirname, realpath
 from werkzeug.utils import secure_filename
@@ -301,11 +302,18 @@ def new_comment(question_id):
 def like(comment_id, action):
     if session.get('user'):
         new_like = Like(session['user_id'], int(comment_id))
+        new_dislike = Dislike(session['user_id'], int(comment_id))
         if action == 'like':
             db.session.add(new_like)
             db.session.commit()
         if action == 'unlike':
             db.session.delete(Like.query.filter(Like.answer_id==comment_id, Like.user_id==session['user_id']).first())
+            db.session.commit()
+        if action == 'dislike':
+            db.session.add(new_dislike)
+            db.session.commit()
+        if action == 'undislike':
+            db.session.delete(Dislike.query.filter(Dislike.answer_id==comment_id, Dislike.user_id==session['user_id']).first())
             db.session.commit()
         comment = db.session.query(Comment).filter(Comment.id == comment_id).first()
         return redirect(url_for('view_question', question_id=comment.question_id))

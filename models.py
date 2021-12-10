@@ -31,6 +31,7 @@ class User(db.Model):
     comments = db.relationship("Comment", backref="user", lazy=True)
     filename = db.Column("filename", db.String(150), nullable=False, server_default='LDance.gif')
     liked = db.relationship("Like", foreign_keys="Like.user_id", backref="user", lazy='dynamic')
+    disliked = db.relationship("Dislike", foreign_keys="Dislike.user_id", backref="user", lazy='dynamic')
 
     def __init__(self, name, email, password):
         self.name = name
@@ -41,8 +42,20 @@ class User(db.Model):
     def liked_answer(self, answer):
         return Like.query.filter(Like.user_id == self.id, Like.answer_id == answer.id).count() > 0
 
+    def disliked_answer(self, answer):
+        return Like.query.filter(Dislike.user_id == self.id, Dislike.answer_id == answer.id).count() > 0
+
 
 class Like(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    answer_id = db.Column(db.Integer, db.ForeignKey("comment.id"), nullable=False)
+
+    def __init__(self, user_id, answer_id):
+        self.user_id = user_id
+        self.answer_id = answer_id
+
+class Dislike(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     answer_id = db.Column(db.Integer, db.ForeignKey("comment.id"), nullable=False)
@@ -59,6 +72,7 @@ class Comment(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     likes = db.relationship("Like", backref="comment", lazy=True)
+    dislikes = db.relationship("Dislike", backref="comment", lazy=True)
 
     def __init__(self, date, content, question_id, user_id):
         self.date = date

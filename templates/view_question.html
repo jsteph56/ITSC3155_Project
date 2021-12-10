@@ -43,20 +43,22 @@
              <ul>
                  {% for comment in question.comments %}
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>{{ user }}</p>
+                  <p>Commenter: {{ user }}</p>
                   <li>{{ comment.content }}</li>
                   <!-- liking/disliking answers -->
                   {% if my_user.liked_answer(comment) %}
-<<<<<<< HEAD
-                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}"" class="like">Unlike</a>
-=======
-                  
-                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}">Unlike</a>
->>>>>>> 1cd66325df8fcf283d07d01bd5a96dae4ede38fc
+                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="like">Unlike</a>
                   {% else %}
                    <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="like">Like</a>
                   {% endif %}
                   <p>{{ comment.likes|length }} likes</p>
+
+                  {% if my_user.disliked_answer(comment) %}
+                   <a href="{{ url_for('like', comment_id=comment.id, action='undislike') }}" class="like">Undislike</a>
+                  {% else %}
+                   <a href="{{ url_for('like', comment_id=comment.id, action='dislike') }}" class="like">Dislike</a>
+                  {% endif %}
+                  <p>{{ comment.dislikes|length }} dislikes</p>
                  {% endfor %}
              </ul>
              {% endif %}
