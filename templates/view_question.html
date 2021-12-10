@@ -47,14 +47,13 @@
                   <li>{{ comment.content }}</li>
                   <!-- liking/disliking answers -->
                   {% if my_user.liked_answer(comment) %}
-<<<<<<< HEAD
-                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}"" class="like">Unlike</a>
-=======
-                  
-                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}">Unlike</a>
->>>>>>> 1cd66325df8fcf283d07d01bd5a96dae4ede38fc
+                   <div class="buttonDiv">
+                       <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="questionButton">Unlike</a>
+                   </div>
                   {% else %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="like">Like</a>
+                   <div class="buttonDiv">
+                       <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
+                   </div>
                   {% endif %}
                   <p>{{ comment.likes|length }} likes</p>
                  {% endfor %}
