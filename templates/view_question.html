@@ -45,20 +45,20 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <p>Commenter: {{ user }}</p>
                   <li>{{ comment.content }}</li>
-                  <!-- liking/disliking answers -->
+                  <!-- liking answers -->
                   {% if my_user.liked_answer(comment) %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="like">Unlike</a>
+                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="questionButton">Unlike</a>
                   {% else %}
                    <div class="buttonDiv">
                        <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
                    </div>
                   {% endif %}
                   <p>{{ comment.likes|length }} likes</p>
-
+                   <!-- disliking answers -->
                   {% if my_user.disliked_answer(comment) %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='undislike') }}" class="like">Undislike</a>
+                   <a href="{{ url_for('like', comment_id=comment.id, action='undislike') }}" class="questionButton">Undislike</a>
                   {% else %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='dislike') }}" class="like">Dislike</a>
+                   <a href="{{ url_for('like', comment_id=comment.id, action='dislike') }}" class="questionButton">Dislike</a>
                   {% endif %}
                   <p>{{ comment.dislikes|length }} dislikes</p>
                  {% endfor %}
