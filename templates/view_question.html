@@ -55,7 +55,7 @@
                        <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
                    </div>
                   {% endif %}
-                  <p>{{ comment.likes|length }} likes - {{ comment.dislikes|length }} dislikes</p>
+                  <p>{{ comment.likes|length }} likes</p>
                  {% endfor %}
              </ul>
              {% endif %}
