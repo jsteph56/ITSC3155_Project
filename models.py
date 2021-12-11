@@ -55,6 +55,7 @@ class Like(db.Model):
         self.user_id = user_id
         self.answer_id = answer_id
 
+
 class Dislike(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)

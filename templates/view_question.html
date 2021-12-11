@@ -28,6 +28,7 @@
             </div>
         </div>
         <div class="leftText">
+            <br/>
             <h1>Question</h1>
             <p>{{ question.header }}></p>
             <h3>Topics</h3>
@@ -37,6 +38,7 @@
         </div>
         <br/>
         <div class="leftText">
+            <div class="divider"></div>
             {% if question.comments %}
              {% if question.comments|length > 0 %}
              <h2>Answers</h2>
@@ -45,7 +47,7 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <p>Commenter: {{ user }}</p>
                   <li>{{ comment.content }}</li>
-                  <!-- liking answers -->
+                  <!-- liking/disliking answers -->
                   {% if my_user.liked_answer(comment) %}
                    <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="questionButton">Unlike</a>
                   {% else %}
@@ -53,14 +55,7 @@
                        <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
                    </div>
                   {% endif %}
-                  <p>{{ comment.likes|length }} likes</p>
-                   <!-- disliking answers -->
-                  {% if my_user.disliked_answer(comment) %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='undislike') }}" class="questionButton">Undislike</a>
-                  {% else %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='dislike') }}" class="questionButton">Dislike</a>
-                  {% endif %}
-                  <p>{{ comment.dislikes|length }} dislikes</p>
+                  <p>{{ comment.likes|length }} likes - {{ comment.dislikes|length }} dislikes</p>
                  {% endfor %}
              </ul>
              {% endif %}
