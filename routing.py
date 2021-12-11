@@ -304,22 +304,13 @@ def like(comment_id, action):
         new_like = Like(session['user_id'], int(comment_id))
         the_like = Like.query.filter(Like.answer_id==comment_id, Like.user_id==session['user_id']).first()
 
-        new_dislike = Dislike(session['user_id'], int(comment_id))
-        the_dislike = Dislike.query.filter(Dislike.answer_id==comment_id, Dislike.user_id==session['user_id']).first()
-
         if action == 'like':
             # First like, just need to add a like to database
             db.session.add(new_like)
-            # If liking after unliking, add like and also remove unlike
-            if (the_dislike):
-                db.session.add(new_like)
-                db.session.delete(the_dislike)
             db.session.commit()
         if action == 'unlike':
             # Remove like
             db.session.delete(the_like)
-            # Add dislike
-            db.session.add(new_dislike)
             db.session.commit()
 
         comment = db.session.query(Comment).filter(Comment.id == comment_id).first()
