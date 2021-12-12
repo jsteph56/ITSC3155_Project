@@ -217,8 +217,8 @@ body {
 
 .profilePic {
     position: relative;
-    width: 450px;
-    height: 450px;
+    width: 90%;
+    height: 90%;
     border-radius: 50%;
     margin-left: -2vw;
 }
@@ -448,10 +448,14 @@ th, td {
     border-radius: 40px;
     color: #272638;
     height: 3%;
-    width: 12.5%;
+    width: 10%;
     outline: white;
     font-family: fontBold;
-    font-size: 20px;
+    font-size: 17px;
+    padding: .5%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
 }
 
 
@@ -475,7 +479,7 @@ th, td {
     background: linear-gradient(to right, #00b7ff, #ffffc7);
     position: relative;
     margin-right: auto;
-    margin-left: 2%;
+    margin-left: auto;
     margin-top: 0%;
     border-radius: 40px;
     color: #272638;
@@ -689,6 +693,7 @@ th, td {
   
   #imgUpload {
     position: relative;
+    margin-left: 20%;
   }
 
   #PictureLabel {
@@ -721,7 +726,7 @@ th, td {
 input[type="submit"] {
     display: block;
     margin-right: auto;
-    margin-left: 12%;
+    margin-left: auto;
     margin-top: 5%;
     margin-bottom: 5%;
     background: linear-gradient(to right, #00b7ff, #ffffc7);

@@ -60,11 +60,11 @@
                     <input type="radio" id="tab-2" name="tab-group-1">  
                     <label for="tab-2" class="tab">Responses</label>
                     <div class="content">
-                            {% for comment in comments %}
-                                <p><a href="{{ url_for('view_question', question_id=comment.question_id) }}">&#8226;&nbsp;&nbsp;{{ comment.content }}</a></p>
-                                <p class="bodyDisplay">Date Posted: {{ comment.date }}</p>
-                                <div class="divider"></div>
-                            {% endfor %}
+                        {% for comment in comments %}
+                            <p><a href="{{ url_for('view_question', question_id=comment.question_id) }}">&#8226;&nbsp;&nbsp;{{ comment.content }}</a></p>
+                            <p class="bodyDisplay">Date Posted: {{ comment.date }}</p>
+                            <div class="divider"></div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="tab">
