@@ -37,7 +37,7 @@
                 {% endfor %}
             <form action="{{ url_for('uploadProfileImage') }}" method="POST" enctype="multipart/form-data" >
                 <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg, image/jpg, image/gif" class="custom-file-input"></span>
-                <input type="submit">
+                <input type="submit" id="imgUpload">
             </form>
             <form action="{{ url_for('register', user_id=user_id) }}" method="GET">
                 <button class="profileButton">Change Password</button>
