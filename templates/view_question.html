@@ -16,7 +16,7 @@
                 <a href="{{ url_for('questions') }}">
                     <h2 class="nav">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a>
+                <a href="{{ url_for('reviews') }}">
                     <h2 class="nav">Reviews</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ url_for('profile') }}">
@@ -28,6 +28,7 @@
             </div>
         </div>
         <div class="leftText">
+            <br/>
             <h1>Question</h1>
             <p>{{ question.header }}></p>
             <h3>Topics</h3>
@@ -35,46 +36,41 @@
             <h3>Description</h3>
             <p>{{ question.body }}</p>
         </div>
+        <br/>
         <div class="leftText">
+            <div class="divider"></div>
             {% if question.comments %}
              {% if question.comments|length > 0 %}
              <h2>Answers</h2>
              <ul>
                  {% for comment in question.comments %}
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <li>{{ comment.content }}</li>
-                  {% if user.liked_answer(answer) %}
-                   <a href="{{ url_for('like', answer_id=answer.id, action='unlike') }}">Unlike</a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <p>Commenter: {{ user }}</p>
+                  <li>{{ comment.content }}</li>
+                  <!-- liking/disliking answers -->
+                  {% if my_user.liked_answer(comment) %}
+                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="questionButton">Unlike</a>
                   {% else %}
-                   <a href="{{ url_for('like', answer_id=answer.id, action='like') }}">Like</a>
+                   <div class="buttonDiv">
+                       <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
+                   </div>
                   {% endif %}
+                  <p>{{ comment.likes|length }} likes</p>
                  {% endfor %}
              </ul>
-             <br/>
              {% endif %}
             {% endif %}
-            <!--trying liking an answer here-->
-            <h2>Feedback:</h2>
-            {% for comment in comments %}
-            <h1>TEST</h1>
-              {% if user.liked_answer(answer) %}
-                <a href="{{ url_for('like', answer_id=answer.id, action='unlike') }}">Unlike</a>
-              {% else %}
-                <a href="{{ url_for('like', answer_id=answer.id, action='like') }}">Like</a>
-              {% endif %}
-            {% endfor %}
-            <br/>
         </div>
+        <br/>
         <div class="leftText">
             <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
-
                 <div class="titleDiv">
-                  <h2 class="title">Add an answer</h2>
+                    <h2 class="title">Add an answer</h2>
                 </div>
-                  <div class="form-field">
+                <div class="form-field">
                     {{ form.comment.label }} <br/> {{ form.comment }}
-                  </div>
-                  {{ form.submit }}
+                </div>
+                {{ form.submit }}
             </form>
         </div>
     </body>

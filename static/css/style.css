@@ -217,7 +217,8 @@ body {
 
 .profilePic {
     position: relative;
-    width: 90%;
+    width: 510px;
+    height: 510px;
     border-radius: 50%;
     margin-left: -2vw;
 }
@@ -447,10 +448,14 @@ th, td {
     border-radius: 40px;
     color: #272638;
     height: 3%;
-    width: 12.5%;
+    width: 10%;
     outline: white;
     font-family: fontBold;
-    font-size: 20px;
+    font-size: 17px;
+    padding: .5%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
 }
 
 
