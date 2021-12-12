@@ -2,27 +2,21 @@
 
 # Imports
 import os
-from flask import Flask, flash, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from database import db
 from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
-from models import Dislike as Dislike
 from forms import RegisterForm, LoginForm, CommentForm, SearchForm
-from os.path import join, dirname, realpath
-from werkzeug.utils import secure_filename
 import bcrypt
 
-UPLOAD_FOLDER = 'static\Images'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 # Create the app
 app = Flask(__name__)
 
 # Set name and location of database file
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aardvark_answers.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Secret key
 app.config['SECRET_KEY'] = 'SE3155'
 
@@ -46,10 +40,10 @@ def index():
 @app.route('/questions')
 def questions():
     # Check if user is saved in session
-    search = SearchForm()
+    searchbar = SearchForm()
 
-    if request.method == 'POST' and search.validate_on_submit():
-        return redirect((url_for('search_results', result=search.search.data)))
+    if request.method == 'POST' and searchbar.validate_on_submit():
+        return search_results(searchbar)
 
     if session.get('user'):
         # Retrieve questions from database
@@ -64,11 +58,23 @@ def questions():
         # Redirect user to login view
         return redirect(url_for('login'))
 
+
 @app.route('/questions/search_results')
-def search_results(result):
-    results = User.query.whoosh_search(result).all()
-    form = SearchForm()
-    return render_template('view_question.html', question=results, user=session['user'], form=form)
+def search_results(searchbar):
+    results = []
+    search_string = search.data['search']
+
+    if search.data['search'] == '':
+        results = db.all()
+
+    if not results:
+        flash('No results found')
+        return redirect(url_for('questions'))
+    else:
+        return render_template('search_results.html', results = results)
+
+
+
 
 
 @app.route('/questions/<question_id>')
@@ -77,11 +83,11 @@ def view_question(question_id):
     if session.get('user'):
         # Retrieve note from database
         my_questions = db.session.query(Question).filter_by(id=question_id).one()
-        my_user = db.session.query(User).filter_by(id=session['user_id']).first()
+
         # Create a comment form object
         form = CommentForm()
 
-        return render_template('view_question.html', question=my_questions, user=session['user'], my_user=my_user, form=form)
+        return render_template('view_question.html', question=my_questions, user=session['user'], form=form)
     else:
         return redirect(url_for('login'))
 
@@ -167,52 +173,14 @@ def profile():
     if session.get('user'):
         # Retrieve questions from database
         my_user = db.session.query(User).filter_by(id=session['user_id'])
-        my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
-        my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
+        my_questions = db.session.query(Question).filter_by(id=session['user_id']).all()
+        my_comments = db.session.query(Comment).filter_by(id=session['user_id']).all()
 
         return render_template('profile.html', questions=my_questions, comments=my_comments,
                                user_id=my_user, user=session['user'])
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
-
-def allowed_file(filename):
-    return '.' in filename and \
-        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/profile', methods=["GET","POST"])
-def uploadProfileImage():
-    if session.get('user'):
-        my_user = db.session.query(User).filter_by(id=session['user_id'])
-        my_questions = db.session.query(Question).filter(Question.user_id == session['user_id']).all()
-        my_comments = db.session.query(Comment).filter(Comment.user_id == session['user_id']).all()
-        
-        if request.method == 'POST':
-            file = request.files['file']
-            if file.filename == '':
-                file.filename = 'LDance.gif'
-                filename = 'LDance.gif'
-            else:
-                filename = file.filename
-                print(filename)
-                print(allowed_file(filename))
-                if allowed_file(filename):
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                else:
-                    flash("Invalid file-type; Please select a file of the following types: jpg, png, or jpeg")
-                    return redirect(url_for('profile'))
-                
-            current_user = User.query.filter_by(id=session['user_id']).first()
-            current_user.filename = filename
-            db.session.commit()
-            
-            return render_template('profile.html', questions=my_questions, comments=my_comments, 
-                user_id=my_user, user=session['user'])
-        else:
-            redirect(url_for('profile'))
-    else:
-        redirect(url_for('login'))
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -282,13 +250,7 @@ def new_comment(question_id):
         if comment_form.validate_on_submit():
             # Get comment data
             comment_text = request.form['comment']
-            # Get data stamp
-            from datetime import date
-            today = date.today()
-            # Format date mm/dd/yy
-            today = today.strftime("%m-%d-%Y")
-            # Create new comment
-            new_record = Comment(today, comment_text, int(question_id), session['user_id'])
+            new_record = Comment(comment_text, int(question_id), session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -298,26 +260,25 @@ def new_comment(question_id):
         return redirect(url_for('login'))
 
 
-@app.route('/questions/<comment_id>/<action>')
-def like(comment_id, action):
+@app.route('/like/<question_id>/<action>')
+def like(question_id, action):
     if session.get('user'):
-        new_like = Like(session['user_id'], int(comment_id))
-        the_like = Like.query.filter(Like.answer_id==comment_id, Like.user_id==session['user_id']).first()
+        my_question = db.session.query(Question).filter_by(id=question_id).one()
+        user = db.session.query(User).filter_by(user_id=session['user_id'])
 
         if action == 'like':
-            # First like, just need to add a like to database
-            db.session.add(new_like)
+            user.like_question(my_question)
             db.session.commit()
         if action == 'unlike':
-            # Remove like
-            db.session.delete(the_like)
+            user.unlike_question(my_question)
             db.session.commit()
 
-        comment = db.session.query(Comment).filter(Comment.id == comment_id).first()
-
-        return redirect(url_for('view_question', question_id=comment.question_id))
+        return redirect(url_for('view_question', question_id=question_id))
     else:
         return redirect(url_for('login'))
+
+
+# -------------REVIEWS------------
 
 
 @app.route('/reviews')
@@ -344,6 +305,7 @@ def new_review():
             today = date.today()
             # Format date mm/dd/yyy
             today = today.strftime("%m-%d-%Y")
+            # Get the last ID used and increment by 1
             # Create new question
             new_rev = Review(body, today, session['user_id'])
             db.session.add(new_rev)

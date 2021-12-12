@@ -448,14 +448,10 @@ th, td {
     border-radius: 40px;
     color: #272638;
     height: 3%;
-    width: 10%;
+    width: 12.5%;
     outline: white;
     font-family: fontBold;
-    font-size: 17px;
-    padding: .5%;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
+    font-size: 20px;
 }
 
 
@@ -479,7 +475,7 @@ th, td {
     background: linear-gradient(to right, #00b7ff, #ffffc7);
     position: relative;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 2%;
     margin-top: 0%;
     border-radius: 40px;
     color: #272638;
@@ -693,7 +689,6 @@ th, td {
   
   #imgUpload {
     position: relative;
-    margin-left: 21%;
   }
 
   #PictureLabel {
@@ -726,7 +721,7 @@ th, td {
 input[type="submit"] {
     display: block;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 12%;
     margin-top: 5%;
     margin-bottom: 5%;
     background: linear-gradient(to right, #00b7ff, #ffffc7);
@@ -737,4 +732,4 @@ input[type="submit"] {
     outline: white;
     font-family: fontBold;
     font-size: 20px;
-}
+  }
