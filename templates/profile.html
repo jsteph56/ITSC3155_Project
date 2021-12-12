@@ -30,14 +30,14 @@
             <div class="bar"></div>
         </div>
         <div class="leftSide">
-            <h1>Account Overview</h1>
+            <h1>Account Overview:</h1>
             <h1>{% if user %}{{ user }}{% endif %}</h1>
                 {% for user in user_id %}
                     <img src="{{ url_for('static', filename='Images/' + user.filename) }}" class="profilePic" alt="Profile Picture">
                 {% endfor %}
             <form action="{{ url_for('uploadProfileImage') }}" method="POST" enctype="multipart/form-data" >
                 <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg, image/jpg, image/gif" class="custom-file-input"></span>
-                <input type="submit" id="imgUpload">
+                <input type="submit">
             </form>
             <form action="{{ url_for('register', user_id=user_id) }}" method="GET">
                 <button class="profileButton">Change Password</button>
@@ -60,23 +60,16 @@
                     <input type="radio" id="tab-2" name="tab-group-1">  
                     <label for="tab-2" class="tab">Responses</label>
                     <div class="content">
-                            {% for comment in comments %}
-                                <p><a href="{{ url_for('view_question', question_id=comment.question_id) }}">&#8226;&nbsp;&nbsp;{{ comment.content }}</a></p>
-                                <p class="bodyDisplay">Date Posted: {{ comment.date }}</p>
-                                <div class="divider"></div>
-                            {% endfor %}
+                        {% for comment in comments %}
+                            <p><a href="{{ url_for('view_question', question_id=comment.question_id) }}">&#8226;&nbsp;&nbsp;{{ comment.content }}</a></p>
+                            <p class="bodyDisplay">Date Posted: {{ comment.date }}</p>
+                            <div class="divider"></div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="tab">
                     <input type="radio" id="tab-3" name="tab-group-1">
                     <label for="tab-3" class="tab">Likes</label>
-                    <div class="content">
-                        <p>Test</p>
-                    </div>
-                </div>
-                <div class="tab">
-                    <input type="radio" id="tab-4" name="tab-group-1">
-                    <label for="tab-4" class="tab">Dislikes</label>
                     <div class="content">
                         <p>Test</p>
                     </div>
