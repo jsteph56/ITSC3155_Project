@@ -45,12 +45,9 @@ def index():
 
 @app.route('/questions')
 def questions():
-
-
     if session.get('user'):
         # Retrieve questions from database
         all_users = db.session.query(User).all()
-
         all_questions = db.session.query(Question).all()
         user_questions = db.session.query(Question).filter_by(user_id=session['user_id']).all()
 
@@ -59,6 +56,7 @@ def questions():
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
+
 
 @app.route('/questions/search_results')
 def search_results(result):
@@ -142,7 +140,7 @@ def update_question(question_id):
             return render_template('new_question.html', question=my_question, user=session['user'])
 
 
-@app.route('/delete/<question_id>', methods=['POST'])
+@app.route('/questions/delete/<question_id>', methods=['POST'])
 def delete_question(question_id):
     # Check if a user is saved in session
     if session.get('user'):
@@ -171,6 +169,7 @@ def profile():
     else:
         # Redirect user to login view
         return redirect(url_for('login'))
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -319,10 +318,13 @@ def like(comment_id, action):
 @app.route('/reviews')
 def reviews():
     if session.get('user'):
-        # Retrieve questions from database
-        my_review = db.session.query(Review).filter_by(user_id=session['user_id']).all()
+        # Retrieve reviews from database
+        all_reviews = db.session.query(Review).all()
+        all_review_users = db.session.query(User).all()
+        user_reviews = db.session.query(Review).filter_by(user_id=session['user_id']).all()
 
-        return render_template('reviews.html', reviews=my_review, user=session['user'])
+        return render_template('reviews.html', reviews=all_reviews, users=all_review_users,
+                               user_reviews=user_reviews, user=session['user'])
     else:
         return redirect(url_for('reviews'))
 
@@ -333,14 +335,14 @@ def new_review():
     if session.get('user'):
         # Check method used for request
         if request.method == 'POST':
-            # Get question detail data
+            # Get review details
             body = request.form['body']
             # Get data stamp
             from datetime import date
             today = date.today()
             # Format date mm/dd/yyy
             today = today.strftime("%m-%d-%Y")
-            # Create new question
+            # Create new review
             new_rev = Review(body, today, session['user_id'])
             db.session.add(new_rev)
             db.session.commit()
@@ -351,14 +353,14 @@ def new_review():
             return render_template('new_review.html', user=session['user'])
     else:
         # User is not in session, so redirect to login
-        return redirect(url_for('reviews'))
+        return redirect(url_for('login'))
 
 
-@app.route('/delete/<review_id>', methods=['POST'])
+@app.route('/reviews/delete/<review_id>', methods=['POST'])
 def delete_review(review_id):
     # Check if a user is saved in session
     if session.get('user'):
-        # Retrieve question from database
+        # Retrieve review from database
         my_review = db.session.query(Review).filter_by(id=review_id).one()
 
         db.session.delete(my_review)
@@ -366,8 +368,8 @@ def delete_review(review_id):
 
         return redirect(url_for('reviews'))
     else:
-        # User is not in session, so redirect to login
-        return redirect(url_for('reviews'))
+        # User is not in session, redirect
+        return redirect(url_for('login'))
 
 
 @app.route('/reviews/edit/<review_id>', methods=['GET', 'POST'])
@@ -376,26 +378,24 @@ def update_review(review_id):
     if session.get('user'):
         # Check method used for request
         if request.method == 'POST':
-            # Get question data
-            header = request.form['header']
+            # Get review body data
             body = request.form['body']
 
             review = db.session.query(Review).filter_by(id=review_id).one()
 
-            # Update question data
-            review.header = header
+            # Update review data
             review.body = body
-            # Update note in db
+            # Update review in db
             db.session.add(review)
             db.session.commit()
 
             return redirect(url_for('reviews'))
         else:
-            # GET request - show new question form to edit question details
+            # GET request - show new review form to edit question details
             # Retrieve user from database
             my_review = db.session.query(Question).filter_by(id=review_id).one()
 
-            return render_template('new_question.html', review=my_review, user=session['user'])
+            return render_template('new_review.html', review=my_review, user=session['user'])
 
 
 @app.route('/search', methods=['GET', 'POST'])

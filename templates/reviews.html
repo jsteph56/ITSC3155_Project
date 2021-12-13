@@ -31,7 +31,7 @@
             <button class="postButton">Post a Review</button>
         </form>
 
-	    <div class="questions">
+	    <div class="reviews">
             <div class="leftText">
 <!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="heading">Recently Posted:</h3>
@@ -40,15 +40,35 @@
                     <div class="questionSpacer">
                     <tr>
                         {% for user in users %}
-                        {% if review.user_id == user.id %}
-                        <p class="title">Posted By: {{ user.name }}</p> <!--This will be fixed later -->
-                        {% endif %}
+                            {% if review.user_id == user.id %}
+                                <p class="title">Posted By: {{ user.name }}</p> <!--This will be fixed later -->
+                            {% endif %}
                         {% endfor %}
                         <p class="bodyDisplay">Date Posted: {{ review.date }}</p>
                     </tr>
                     <div class="divider"></div>
                     <tr>
                         <p class="bodyDisplay">{{ review.body }}</p>
+                    </tr>
+                    <tr>
+                        {% for user_q in user_reviews %}
+                            {% if review.id == user_q.id %}
+                                <div class="buttonDiv">
+                                    <div class="edit">
+                                        <td>
+                                            <form action="{{ url_for('update_review', review_id=review.id) }}" method="get">
+                                                <button type="submit" value="Edit" class="questionButton">Edit</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="{{ url_for('delete_review', review_id=review.id) }}" method="post">
+                                                <button type="submit" value="Delete" class="questionButton">Delete</button>
+                                            </form>
+                                        </td>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </tr>
                     </div>
                     {% endfor %}

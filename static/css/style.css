@@ -448,13 +448,11 @@ th, td {
     border-radius: 40px;
     color: #272638;
     height: 3%;
-    width: 10%;
     outline: white;
     font-family: fontBold;
     font-size: 17px;
-    padding: .5%;
+    padding: 2%;
     display: inline-block;
-    vertical-align: middle;
     text-align: center;
 }
 

@@ -27,18 +27,18 @@
                 </a>
             </div>
         </div>
-        <div class="leftText">
-            <br/>
+        <div class="leftText"><br>
             <h1>Question</h1>
             <p>{{ question.header }}></p>
             <h3>Topics</h3>
             <p>{{ question.topics }}</p>
             <h3>Description</h3>
             <p>{{ question.body }}</p>
-        </div>
-        <br/>
+        </div><br>
+
         <div class="leftText">
             <div class="divider"></div>
+            <!-- Answers -->
             {% if question.comments %}
              {% if question.comments|length > 0 %}
              <h2>Answers</h2>
@@ -47,7 +47,7 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <p>Answered by: {{ user.name }}</p>
                   <li>{{ comment.content }}</li>
-                  <!-- liking/disliking answers -->
+                  <!-- Liking/disliking answers -->
                   {% if my_user.liked_answer(comment) %}
                    <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="questionButton">Unlike</a>
                   {% else %}
@@ -60,15 +60,15 @@
              </ul>
              {% endif %}
             {% endif %}
-        </div>
-        <br/>
+        </div><br>
+        <!-- Adding an answer -->
         <div class="leftText">
             <form action="{{ url_for('new_comment', question_id=question.id, user_id=user.id) }}" method="post">
                 <div class="titleDiv">
                     <h2 class="title">Add an answer</h2>
                 </div>
                 <div class="form-field">
-                    {{ form.comment.label }} <br/> {{ form.comment }}
+                    {{ form.comment.label }} <br> {{ form.comment }}
                 </div>
                 {{ form.submit }}
             </form>

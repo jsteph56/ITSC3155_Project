@@ -33,13 +33,14 @@
             {% else %}
                 <form action ="new_review" method="post">
             {% endif %}
-                    <p><label class="searchText" title="Type your title here">Title</label></p>
-                    <p><input class="search" type="text" name="header" value="{% if review %}{{review.header}} {% endif %}"/></p>
-                    <!-- <p><input class="search" type="text" name="topics" value="{% if question %}{{question.topic}} {% endif %}"/></p> -->
-                    <p><label class="searchText">Review</label></p>
+                    <h1><label class="leftText">Review</label></h1>
                     <p>
                         <!-- Keep this in one line, otherwise the new lines and spaces appear in the textarea. Ugly code makes pretty website-->
-                        <textarea name="body" rows="10" cols="0" class="body" title="Type your review here"></textarea>
+                        {% if review %}
+                            <textarea name="body" rows="15" cols="0" class="body">{{ review.body }}</textarea>
+                        {% else %}
+                            <textarea name="body" rows="15" cols="0" class="body">Type your review here!</textarea>
+                        {% endif %}
                     </p>
                     <p>
                         {% if review %}
