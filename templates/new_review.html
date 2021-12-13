@@ -15,7 +15,7 @@
                 <a href="{{ url_for('questions') }}">
                     <h2 class="nav">Home</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a>
+                <a href="{{ url_for('reviews') }}">
                     <h2 class="navCurrent">Reviews</h2>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ url_for('profile') }}">
@@ -27,7 +27,6 @@
             </div>
         </div>
         <div class="reviews">
-
             {% if review %}
                 <form action="{{ url_for('new_review', user_id=my_user) }}" method="post">
             {% else %}

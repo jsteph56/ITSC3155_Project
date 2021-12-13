@@ -40,25 +40,27 @@
             <div class="divider"></div>
             <!-- Answers -->
             {% if question.comments %}
-             {% if question.comments|length > 0 %}
-             <h2>Answers</h2>
-             <ul>
-                 {% for comment in question.comments %}
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>Answered by: {{ user.name }}</p>
-                  <li>{{ comment.content }}</li>
-                  <!-- Liking/disliking answers -->
-                  {% if my_user.liked_answer(comment) %}
-                   <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}" class="questionButton">Unlike</a>
-                  {% else %}
-                   <div class="buttonDiv">
-                       <a href="{{ url_for('like', comment_id=comment.id, action='like') }}" class="questionButton">Like</a>
-                   </div>
-                  {% endif %}
-                  <p>{{ comment.likes|length }} likes</p>
-                 {% endfor %}
-             </ul>
-             {% endif %}
+                {% if question.comments|length > 0 %}
+                <h2>Answers</h2>
+                <ul>
+                    {% for comment in question.comments %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p>Answered by: {{ user.name }}</p>
+                        <li>{{ comment.content }}</li>
+                        <!-- Liking/disliking answers -->
+                        <div class="buttonDiv">
+                            {% if my_user.liked_answer(comment) %}
+                                <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}"
+                                   value="Unlike" class="questionButton">Unlike</a>
+                            {% else %}
+                                <a href="{{ url_for('like', comment_id=comment.id, action='like') }}"
+                                   value="Like" class="questionButton">Like</a>
+                            {% endif %}
+                        </div>
+                        <p>{{ comment.likes|length }} likes</p>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             {% endif %}
         </div><br>
         <!-- Adding an answer -->

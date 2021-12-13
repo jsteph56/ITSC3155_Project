@@ -39,7 +39,8 @@
                     {% for question in questions %}
                     <div class="questionSpacer">
                     <tr>
-                        <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">{{ question.header }}</a></p>
+                        <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">
+                            {{ question.header }}</a></p>
                         {% for user in users %}
                         {% if question.user_id == user.id %}
                         <p class="asked">Asked By: {{ user.name }}</p> <!--This will be fixed later -->

@@ -308,6 +308,15 @@ def like(comment_id, action):
             db.session.delete(the_like)
             db.session.commit()
 
+        if action == 'dislike':
+            # First like, just need to add a like to database
+            db.session.add(new_like)
+            db.session.commit()
+        if action == 'undislike':
+            # Remove dislike
+            db.session.delete(the_like)
+            db.session.commit()
+
         comment = db.session.query(Comment).filter(Comment.id == comment_id).first()
 
         return redirect(url_for('view_question', question_id=comment.question_id))
