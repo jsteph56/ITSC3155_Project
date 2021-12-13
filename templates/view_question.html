@@ -45,7 +45,7 @@
              <ul>
                  {% for comment in question.comments %}
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>Commenter: {{ user }}</p>
+                  <p>Answered by: {{ user.name }}</p>
                   <li>{{ comment.content }}</li>
                   <!-- liking/disliking answers -->
                   {% if my_user.liked_answer(comment) %}
@@ -63,7 +63,7 @@
         </div>
         <br/>
         <div class="leftText">
-            <form action="{{ url_for('new_comment', question_id=question.id) }}" method="post">
+            <form action="{{ url_for('new_comment', question_id=question.id, user_id=user.id) }}" method="post">
                 <div class="titleDiv">
                     <h2 class="title">Add an answer</h2>
                 </div>

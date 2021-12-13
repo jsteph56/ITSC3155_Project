@@ -45,11 +45,7 @@ def index():
 
 @app.route('/questions')
 def questions():
-    # Check if user is saved in session
-    search = SearchForm()
 
-    if request.method == 'POST' and search.validate_on_submit():
-        return redirect((url_for('search_results', result=search.search.data)))
 
     if session.get('user'):
         # Retrieve questions from database

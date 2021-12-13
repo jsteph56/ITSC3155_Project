@@ -71,6 +71,7 @@ class Comment(db.Model):
     content = db.Column(db.VARCHAR, nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey("question.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
     likes = db.relationship("Like", backref="comment", lazy=True)
 
     def __init__(self, date, content, question_id, user_id):
