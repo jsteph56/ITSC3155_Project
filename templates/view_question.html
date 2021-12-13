@@ -45,7 +45,6 @@
                 <ul>
                     {% for comment in question.comments %}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <p>Answered by: {{ user.name }}</p>
                         <li>{{ comment.content }}</li>
                         <!-- Liking/disliking answers -->
                         <div class="buttonDiv">
