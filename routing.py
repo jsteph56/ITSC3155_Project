@@ -8,7 +8,6 @@ from models import Question as Question, Review
 from models import User as User
 from models import Comment as Comment
 from models import Like as Like
-from models import Dislike as Dislike
 from forms import RegisterForm, LoginForm, CommentForm, SearchForm
 from os.path import join, dirname, realpath
 from werkzeug.utils import secure_filename
@@ -305,15 +304,6 @@ def like(comment_id, action):
             db.session.commit()
         if action == 'unlike':
             # Remove like
-            db.session.delete(the_like)
-            db.session.commit()
-
-        if action == 'dislike':
-            # First like, just need to add a like to database
-            db.session.add(new_like)
-            db.session.commit()
-        if action == 'undislike':
-            # Remove dislike
             db.session.delete(the_like)
             db.session.commit()
 

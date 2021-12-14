@@ -59,6 +59,7 @@
                                 {% endif %}
                                 <p>{{ comment.likes|length }} likes</p>
                             {% else %}
+                            <!-- If not user, don't display like/unlike button -->
                                 <p>{{ comment.likes|length }} likes</p>
                             {% endif %}
                         </div>

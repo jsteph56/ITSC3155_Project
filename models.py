@@ -42,21 +42,8 @@ class User(db.Model):
     def liked_answer(self, answer):
         return Like.query.filter(Like.user_id == self.id, Like.answer_id == answer.id).count() > 0
 
-    def disliked_answer(self, answer):
-        return Like.query.filter(Dislike.user_id == self.id, Dislike.answer_id == answer.id).count() > 0
-
 
 class Like(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    answer_id = db.Column(db.Integer, db.ForeignKey("comment.id"), nullable=False)
-
-    def __init__(self, user_id, answer_id):
-        self.user_id = user_id
-        self.answer_id = answer_id
-
-
-class Dislike(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     answer_id = db.Column(db.Integer, db.ForeignKey("comment.id"), nullable=False)
