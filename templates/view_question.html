@@ -27,7 +27,7 @@
                 </a>
             </div>
         </div>
-        <div class="leftText"><br>
+        <div class="leftText"><br><br>
             <h1>Question</h1>
             <p>{{ question.header }}></p>
             <h3>Topics</h3>
@@ -41,27 +41,32 @@
             <!-- Answers -->
             {% if question.comments %}
                 {% if question.comments|length > 0 %}
-                <h2>Answers</h2>
+                <br>
+                <h1>Answers</h1>
                 <ul>
                     {% for comment in question.comments %}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <li>{{ comment.content }}</li>
+                        <li>{{ comment.content }}</li><br>
                         <!-- Liking/disliking answers -->
                         <div class="buttonDiv">
-                            {% if my_user.liked_answer(comment) %}
-                                <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}"
-                                   value="Unlike" class="questionButton">Unlike</a>
+                            {% if my_user %}
+                                {% if my_user.liked_answer(comment) %}
+                                    <a href="{{ url_for('like', comment_id=comment.id, action='unlike') }}"
+                                       value="Unlike" class="questionButton">Unlike</a>
+                                {% else %}
+                                    <a href="{{ url_for('like', comment_id=comment.id, action='like') }}"
+                                       value="Like" class="questionButton">Like</a>
+                                {% endif %}
+                                <p>{{ comment.likes|length }} likes</p>
                             {% else %}
-                                <a href="{{ url_for('like', comment_id=comment.id, action='like') }}"
-                                   value="Like" class="questionButton">Like</a>
+                                <p>{{ comment.likes|length }} likes</p>
                             {% endif %}
                         </div>
-                        <p>{{ comment.likes|length }} likes</p>
                     {% endfor %}
                 </ul>
                 {% endif %}
             {% endif %}
-        </div><br>
+        </div><br><br>
         <!-- Adding an answer -->
         <div class="leftText">
             <form action="{{ url_for('new_comment', question_id=question.id, user_id=user.id) }}" method="post">
