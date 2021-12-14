@@ -33,7 +33,6 @@
 
 	    <div class="reviews">
             <div class="leftText">
-<!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="heading">Recently Posted:</h3>
                 <table class="centered">
                     {% for review in reviews %}
@@ -41,7 +40,7 @@
                     <tr>
                         {% for user in users %}
                             {% if review.user_id == user.id %}
-                                <p class="title">Posted By: {{ user.name }}</p> <!--This will be fixed later -->
+                                <p class="title">Posted By: {{ user.name }}</p>
                             {% endif %}
                         {% endfor %}
                         <p class="bodyDisplay">Date Posted: {{ review.date }}</p>
@@ -55,11 +54,6 @@
                             {% if review.id == user_q.id %}
                                 <div class="buttonDiv">
                                     <div class="edit">
-                                        <td>
-                                            <form action="{{ url_for('update_review', review_id=review.id) }}" method="GET">
-                                                <button type="submit" value="Edit" class="questionButton">Edit</button>
-                                            </form>
-                                        </td>
                                         <td>
                                             <form action="{{ url_for('delete_review', review_id=review.id) }}" method="post">
                                                 <button type="submit" value="Delete" class="questionButton">Delete</button>

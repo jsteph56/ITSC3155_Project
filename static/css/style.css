@@ -450,7 +450,7 @@ th, td {
     font-family: fontBold;
     font-size: 17px;
     padding: 1.5%;
-    display: inline-block;
+    display: inline;
     text-align: center;
 }
 

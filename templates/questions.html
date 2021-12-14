@@ -33,48 +33,47 @@
 
         <div class="questions">
             <div class="leftText">
-<!-- We will need to add a conditional here to display "There are no posts" when empty. -->
                 <h3 class="heading">Recently Posted:</h3>
                 <table class="centered">
                     {% for question in questions %}
                     <div class="questionSpacer">
-                    <tr>
-                        <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">
-                            {{ question.header }}</a></p>
-                        {% for user in users %}
-                        {% if question.user_id == user.id %}
-                        <p class="asked">Asked By: {{ user.name }}</p> <!--This will be fixed later -->
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <div class="divider"></div>
-                    <tr>
-                        <p class="bodyDisplay">{{ question.body }}</p>
-                    </tr>
-                    <tr>
-                        <p class="topic">Topic: {{ question.topics }}</p>
-                    </tr>
-                    <br><br><br>
-                    <tr>
-                        {% for user_q in user_questions %}
-                            {% if question.id == user_q.id %}
-                                <div class="buttonDiv">
-                                    <div class="edit">
-                                        <td>
-                                            <form action="{{ url_for('update_question', question_id=question.id) }}" method="GET">
-                                                <button type="submit" value="Edit" class="questionButton">Edit</button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <form action="{{ url_for('delete_question', question_id=question.id) }}" method="POST">
-                                                <button type="submit" value="Delete" class="questionButton">Delete</button>
-                                            </form>
-                                        </td>
-                                    </div>
-                                </div>
+                        <tr>
+                            <p class="title"><a href="{{ url_for('view_question', question_id=question.id) }}">
+                                {{ question.header }}</a></p>
+                            {% for user in users %}
+                            {% if question.user_id == user.id %}
+                            <p class="asked">Asked By: {{ user.name }}</p> <!--This will be fixed later -->
                             {% endif %}
-                        {% endfor %}
-                    </tr>
+                            {% endfor %}
+                        </tr>
+                        <div class="divider"></div>
+                        <tr>
+                            <p class="bodyDisplay">{{ question.body }}</p>
+                        </tr>
+                        <tr>
+                            <p class="topic">Topic: {{ question.topics }}</p>
+                        </tr>
+                        <br><br><br>
+                        <tr>
+                            {% for user_q in user_questions %}
+                                {% if question.id == user_q.id %}
+                                    <div class="buttonDiv">
+                                        <div class="edit">
+                                            <td>
+                                                <form action="{{ url_for('update_question', question_id=question.id) }}" method="GET">
+                                                    <button type="submit" value="Edit" class="questionButton">Edit</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="{{ url_for('delete_question', question_id=question.id) }}" method="POST">
+                                                    <button type="submit" value="Delete" class="questionButton">Delete</button>
+                                                </form>
+                                            </td>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
                     </div>
                     {% endfor %}
                 </table>
