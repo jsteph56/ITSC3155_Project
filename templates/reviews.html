@@ -55,16 +55,16 @@
                             {% if review.id == user_q.id %}
                                 <div class="buttonDiv">
                                     <div class="edit">
-                                        <td>
+                                        <tr>
                                             <form action="{{ url_for('update_review', review_id=review.id) }}" method="GET">
                                                 <button type="submit" value="Edit" class="questionButton">Edit</button>
                                             </form>
-                                        </td>
-                                        <td>
+                                        </tr>
+                                        <tr>
                                             <form action="{{ url_for('delete_review', review_id=review.id) }}" method="post">
                                                 <button type="submit" value="Delete" class="questionButton">Delete</button>
                                             </form>
-                                        </td>
+                                        </tr>
                                     </div>
                                 </div>
                             {% endif %}
